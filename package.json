@@ -1,5 +1,5 @@
 {
-  "name": "ip",
+  "name": "ntp",
   "version": "0.0.0",
   "private": true,
   "scripts": {
