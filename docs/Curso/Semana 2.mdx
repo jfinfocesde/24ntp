@@ -157,6 +157,7 @@ Algunos puntos sobre el sangrado en Python:
 
 El sangrado hace que el código Python sea más legible visualmente, ayudando a agrupar líneas relacionadas y resaltando la estructura anidada. Por eso es una parte importante del estilo de codificación en Python.
 
+
 ## Variables en python
 
 En Python, las variables son usadas para almacenar información y pueden ser referenciadas por un nombre.
@@ -197,6 +198,65 @@ _nombre_completo = "Juan Pérez"
 123nombre = "Juan" # Comienza con un número
 nombre-completo = "Juan Pérez" # Contiene un guión
 if = "condicional" # Es una palabra reservada
+```
+## Snake case
+
+El snake case es una convención de nomenclatura muy utilizada en Python para nombrar variables, funciones y módulos. Aquí tienes una explicación más detallada:
+
+1.  Definición: Snake case consiste en escribir palabras en minúsculas, separándolas con guiones bajos (\_).
+2.  Uso en Python:
+    -   Variables: mi\_variable, contador, nombre\_usuario
+    -   Funciones: calcular\_promedio(), obtener\_datos(), imprimir\_resultado()
+    -   Módulos: utilidades.py, procesamiento\_datos.py
+3.  Ejemplos:
+
+
+```python
+# Variables
+numero_de_usuarios = 100
+nombre_completo = "Juan Pérez"
+
+# Función
+def calcular_area_rectangulo(largo, ancho):
+    return largo * ancho
+
+# Llamada a función
+area = calcular_area_rectangulo(5, 3)
+
+# En una clase
+class ProcesadorTexto:
+    def __init__(self):
+        self.texto_actual = ""
+
+    def contar_palabras(self):
+        return len(self.texto_actual.split())
+```
+
+4.   Ventajas:
+    -   Mejora la legibilidad del código
+    -   Es consistente con la filosofía de Python de código explícito y claro
+    -   Facilita la distinción entre variables/funciones y clases (que usan PascalCase)
+5.   Cuándo no usar snake case:
+    -   Nombres de clases (usar PascalCase)
+    -   Constantes (usar MAYÚSCULAS\_CON\_GUIONES\_BAJOS)
+6.   Consideraciones:
+    -   Evitar nombres de una sola letra, excepto para contadores o índices muy simples
+    -   Usar nombres descriptivos pero no excesivamente largos
+
+## Constantes en Python
+
+Las constantes en Python son un concepto un poco diferente comparado con otros lenguajes de programación. 
+
+1.  Convención de nombrado:
+    -   Se escriben en MAYÚSCULAS\_CON\_GUIONES\_BAJOS
+    -   Ejemplo: MAX\_VALUE, PI, DEFAULT\_CONFIG
+2.  Declaración: En Python, técnicamente no existen constantes "verdaderas". Se usan variables regulares, pero por convención, se tratan como constantes.
+
+
+```python
+x = 5 # número entero
+y = 5.0 # número flotante
+z = 3 + 4j # número complejo
 ```
 
 ## Tipos de datos en python
