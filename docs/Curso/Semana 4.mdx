@@ -1,5 +1,560 @@
 ---
 sidebar_position: 4
-draft: true
+draft: false
 slug: /semana4
 ---
+# Semana 4
+
+## Fundamentación de los Sistemas de Control de Versiones
+------------------------------------------------------
+
+## ¿Qué son?
+
+Los sistemas de control de versiones (SCV) son herramientas que permiten el seguimiento y la gestión de cambios en archivos o conjuntos de archivos a lo largo del tiempo. Permiten:
+
+-   Registrar las modificaciones: Cada cambio realizado en un archivo se guarda como una nueva versión, creando un historial completo del desarrollo.
+-   Recuperar versiones anteriores: Si se comete un error o se desea volver a una versión anterior del proyecto, es posible hacerlo con facilidad.
+-   Colaborar en equipo: Los SCV facilitan el trabajo en equipo, permitiendo a varios usuarios trabajar en el mismo proyecto de forma simultánea y sincronizada.
+-   Compartir el código: Los SCV permiten compartir el código de forma pública o privada, facilitando la colaboración con otros desarrolladores.
+
+## Beneficios
+
+-   Mejora la calidad del código: Permite realizar un seguimiento de los cambios y revertir errores fácilmente.
+-   Facilita la colaboración: Permite trabajar en equipo de forma eficiente y segura.
+-   Aumenta la productividad: Ahorra tiempo al evitar la duplicación de trabajo y la pérdida de datos.
+-   Mejora la comunicación: Permite a los desarrolladores comprender mejor la evolución del proyecto.
+-   Promueve la transparencia: Permite a todos los miembros del equipo tener acceso al historial del proyecto.
+
+## Tipos de SCV
+
+-   Centralizados: Existe un único repositorio central donde se almacenan todas las versiones de los archivos. Ejemplos: Subversion, CVS, Perforce.
+
+
+![https://www.opentix.es/wp-content/uploads/2019/02/articulo_img1.png](https://www.opentix.es/wp-content/uploads/2019/02/articulo_img1.png)
+
+
+-   Distribuidos: Cada usuario tiene una copia completa del repositorio en su propio equipo. Ejemplos: Git, Mercurial, Bazaar.
+
+![https://www.opentix.es/wp-content/uploads/2019/02/articulo_img2.png](https://www.opentix.es/wp-content/uploads/2019/02/articulo_img2.png)
+
+
+## Herramientas populares:
+
+-   Git: Es el SCV más utilizado en la actualidad, conocido por su flexibilidad y eficiencia.
+-   Subversion: Es un SCV centralizado popular por su simplicidad y facilidad de uso.
+
+
+## ¿Qué es Git?
+
+Git es un sistema de control de versiones distribuido, de código abierto y gratuito, utilizado para el seguimiento y la gestión de cambios en archivos o conjuntos de archivos.
+
+### Conceptos básicos
+
+-   Repositorio: Es la ubicación donde se almacenan todas las versiones de los archivos. Puede ser local (en tu equipo) o remoto (en un servidor).
+-   Commit: Es una instantánea de un conjunto de archivos en un momento determinado. Cada commit tiene un identificador único (hash) que lo referencia.
+-   Branch: Es una rama de desarrollo independiente dentro del repositorio. Permite trabajar en diferentes versiones del proyecto al mismo tiempo.
+-   Merge: Es el proceso de combinar dos o más branches en una sola.
+-   Pull request: Es una solicitud para que un cambio realizado en una branch se integre en otra branch.
+
+### Terminología
+
+-   HEAD: Es el puntero que indica la última versión del proyecto en la branch actual.
+-   Remote: Es un alias para un repositorio remoto.
+-   Clone: Es el proceso de crear una copia completa de un repositorio remoto en tu equipo.
+-   Push: Es el proceso de enviar cambios realizados en tu repositorio local a un repositorio remoto.
+-   Fetch: Es el proceso de descargar cambios del repositorio remoto a tu repositorio local.
+
+### Beneficios de usar Git
+
+-   Control de versiones: Permite realizar un seguimiento de todos los cambios realizados en el proyecto.
+-   Colaboración: Permite trabajar en equipo de forma eficiente y segura.
+-   Reversibilidad: Permite volver a una versión anterior del proyecto en caso de errores.
+-   Eficiencia: Ahorra tiempo al evitar la duplicación de trabajo y la pérdida de datos.
+-   Flexibilidad: Permite trabajar con diferentes branches y realizar merges de forma sencilla.
+-   Seguridad: Protege los archivos contra la pérdida accidental o la corrupción.
+
+### Flujo de trabajo en Git
+
+![https://neurathsboat.blog/post/git-intro/img/Git_trees.png](https://neurathsboat.blog/post/git-intro/img/Git_trees.png)
+
+### Comandos de configuración inicial de Git
+
+Al iniciar con Git, hay algunos comandos que puedes usar para personalizar tu experiencia y optimizar tu flujo de trabajo. Estos son algunos de los comandos más comunes para la configuración inicial:
+
+Configurar tu nombre y correo electrónico:
+
+-   `git config --global user.name "Tu nombre completo"`: Establece tu nombre de usuario global.
+-   `git config --global user.email "tucorreo@email.com"`: Establece tu correo electrónico global.
+
+Ejemplos:
+
+-   Para establecer el nombre de usuario global:
+
+```bash
+git config --global user.name "Juan Pérez"
+git config --global user.email "juanperez@gmail.com"
+
+```
+-   Para mostrar todas las configuraciones:
+
+```bash
+git config --list
+```
+
+### El comando git --version
+
+Se utiliza para verificar qué versión de Git está instalada.
+
+```bash   
+git --version
+```
+
+## Comandos de básicos de Git
+
+### 1\. Inicialización
+
+### `git init`
+
+Este comando crea un nuevo repositorio Git en el directorio actual. Un repositorio Git es una carpeta que contiene el historial de commits, las ramas y la configuración del proyecto.
+
+Ejemplo:
+
+```bash
+mkdir mi_proyecto
+cd mi_proyecto
+git init
+
+```
+
+Explicación:
+
+-   `mkdir mi_proyecto`: Crea una nueva carpeta llamada `mi_proyecto`.
+-   `cd mi_proyecto`: Cambia el directorio actual a `mi_proyecto`.
+-   `git init`: Inicializa un nuevo repositorio Git en la carpeta `mi_proyecto`.
+
+Resultado:
+
+-   Se crea un archivo `.git` en la carpeta `mi_proyecto`. Este archivo contiene metadatos sobre el repositorio, como el historial de commits y la configuración.
+
+### 2\. Seguimiento de cambios
+
+### `git add`
+
+Este comando agrega archivos al área de preparación para el siguiente commit. El área de preparación es un espacio temporal donde se almacenan los cambios antes de ser confirmados en el historial del proyecto.
+
+Ejemplo:
+
+```bash
+git add archivo.txt
+
+```
+
+Explicación:
+
+-   `git add archivo.txt`: Agrega el archivo `archivo.txt` al área de preparación.
+
+Resultado:
+
+-   El archivo `archivo.txt` se marca como listo para ser incluido en el siguiente commit.
+
+### `git add .`
+
+El comando git add . en Git se utiliza para agregar todos los archivos modificados y no rastreados en tu directorio actual al área de preparación para la siguiente confirmación (commit).
+
+```bash
+git add .
+
+```
+
+### `git commit`
+
+Este comando crea un commit con los cambios del área de preparación. Un commit es una instantánea permanente del estado del proyecto en un momento determinado.
+
+Ejemplo:
+
+```bash
+git commit -m "Mensaje del commit"
+
+```
+
+Explicación:
+
+-   `git commit`: Crea un commit con los cambios del área de preparación.
+-   `-m "Mensaje del commit"`: Especifica un mensaje que describe los cambios en el commit.
+
+Resultado:
+
+-   Se crea un nuevo commit en el historial del proyecto. El commit contiene los cambios que se agregaron al área de preparación.
+
+### `git commit -am`:
+
+El comando git commit -am "mensaje" en Git es una forma abreviada de confirmar tus cambios junto con un mensaje de confirmación. 
+
+```bash
+git commit -am "Mensaje del commit"
+
+```
+
+### `git status`
+
+Este comando muestra el estado actual del repositorio, incluyendo los archivos modificados y sin confirmar.
+
+Ejemplo:
+
+```bash
+git status
+
+```
+
+Explicación:
+
+-   `git status`: Muestra información sobre el estado del repositorio.
+
+Resultado:
+
+-   Se muestra una lista de los archivos que han sido modificados pero no se han confirmado.
+-   También se muestra información sobre el estado de la rama actual.
+
+### 3\. Navegación por el historial
+
+### `git log`
+
+Este comando muestra el historial de commits del repositorio. Muestra información como el autor del commit, la fecha y el mensaje del commit.
+
+Ejemplo:
+
+```bash
+git log
+git log --pretty=oneline
+```
+
+Explicación:
+
+-   `git log`: Muestra el historial de commits del repositorio.
+
+Resultado:
+
+-   Se muestra una lista de los commits en orden cronológico inverso.
+-   Para cada commit, se muestra información como el autor, la fecha y el mensaje del commit.
+
+### `git checkout`
+
+Este comando cambia a una rama o commit específico. Permite trabajar en diferentes versiones del proyecto.
+
+Ejemplo:
+
+```bash
+git checkout rama_nueva
+
+```
+
+Explicación:
+
+-   `git checkout rama_nueva`: Cambia a la rama `rama_nueva`.
+
+Resultado:
+
+-   Se cambia el estado del repositorio para que coincida con la rama `rama_nueva`.
+-   Los archivos que están en el área de preparación se descartan.
+
+### 4\. Colaboración
+
+### `git clone`
+
+Este comando clona un repositorio remoto en tu equipo local. Crea una copia del repositorio en tu computadora para que puedas trabajar en él.
+
+Ejemplo:
+
+```bash
+git clone https://url_del_repositorio.git
+
+```
+
+Explicación:
+
+-   `git clone https://url_del_repositorio.git`: Clona el repositorio remoto ubicado en `https://url_del_repositorio.git` en la carpeta actual.
+
+Resultado:
+
+-   Se crea una copia del repositorio remoto en la carpeta actual.
+-   La copia local del repositorio está sincronizada con la versión remota.
+
+### `git push`
+
+Este comando envía los cambios locales al repositorio remoto. Sube tus cambios al repositorio para que otros puedan acceder a ellos.
+
+Ejemplo:
+
+```bash
+git push
+
+```
+
+Explicación:
+
+-   `git push`: Envía los cambios locales al repositorio remoto.
+
+Resultado:
+
+-   Los cambios que se han confirmado en la rama actual se envían al repositorio remoto.
+-   La versión remota del repositorio se actualiza con los cambios locales.
+
+### `git pull`
+
+-   La versión local del repositorio se actualiza con los últimos cambios del repositorio remoto.
+
+Ejemplo:
+
+```bash
+git pull
+
+```
+### 5\. Deshacer cambios
+
+Comando `git reset`: 
+
+El comando `git reset` permite deshacer cambios locales en tu repositorio Git. Es una herramienta poderosa, pero puede ser peligrosa si se usa incorrectamente.
+
+¿Qué hace `git reset`?
+
+`git reset` te permite retroceder en el historial de commits de tu rama actual. Puedes usarlo para:
+
+-   Eliminar commits locales que aún no has compartido con otros.
+-   Deshacer cambios que has hecho en archivos específicos.
+-   Rebobinar tu rama a un estado anterior.
+
+Opciones comunes:
+
+-   `--mixed` (por defecto): Mueve el puntero HEAD a la confirmación especificada, pero conserva los cambios en el índice y el árbol de trabajo.
+-   `--soft`: Mueve el puntero HEAD a la confirmación especificada, pero conserva los cambios en el índice y el árbol de trabajo. Es como `git reset --mixed`, pero también conserva el estado del árbol de trabajo.
+-   `--hard`: Mueve el puntero HEAD a la confirmación especificada, y reescribe el índice y el árbol de trabajo para que coincidan con esa confirmación. Elimina los cambios locales que no se han confirmado.
+
+Ejemplo:
+
+Supongamos que has hecho algunos cambios en un archivo y luego te das cuenta de que has cometido un error. Puedes usar `git reset` para deshacer los cambios:
+
+```bash
+git reset HEAD~1
+
+```
+
+Este comando moverá el puntero HEAD un commit hacia atrás. Los cambios que hiciste en el archivo se eliminarán del índice y del árbol de trabajo.
+
+Precauciones:
+
+-   No uses `git reset --hard` si has compartido tus cambios con otros. Esto reescribirá el historial de commits, lo que puede causar problemas a otros colaboradores.
+-   Ten cuidado al usar `git reset` con archivos que no has modificado. Si usas `git reset --hard`, estos archivos se restaurarán a su estado anterior, incluso si no los has modificado.
+
+## Flujo de Git para Hacer Commits y Regresar en el Tiempo
+
+Git te permite realizar un seguimiento de todos los cambios en tu código y volver a versiones anteriores en cualquier momento.  Aquí te presentamos un flujo de trabajo para hacer commits y navegar en el historial de tu repositorio:
+
+**1.  Inicializar un repositorio**
+
+* Si trabajas en un proyecto nuevo, utiliza el comando `git init` en la carpeta raíz del proyecto.
+
+**2.  Verificar el estado actual del repositorio**
+
+*  Utiliza el comando `git status` para ver qué archivos se han modificado y cuáles están listos para ser confirmados (commiteados).
+
+**3.  Agregar archivos a la etapa de confirmación**
+
+*  Utiliza el comando `git add <archivo>` para agregar los archivos que quieres incluir en el siguiente commit. Puedes usar `git add .` para agregar todos los archivos modificados.
+
+**4.  Realizar un commit**
+
+*  Utiliza el comando `git commit -m "Mensaje descriptivo"` para confirmar los cambios. Reemplaza "Mensaje descriptivo" por una descripción concisa de los cambios que has realizado.
+
+**5.  Ver el historial de commits**
+
+*  Utiliza el comando `git log` para ver el historial completo de commits. Puedes usar las opciones `--pretty=oneline` o `--graph` para obtener una salida más compacta o un gráfico del historial.
+
+**6.  Regresar a un commit anterior**
+
+*  Utiliza el comando `git checkout <id_del_commit>` para volver a un commit específico. Puedes obtener el ID del commit desde la salida del comando `git log`.
+    *  Por ejemplo, si el ID del commit es `a1b2c3`, usarías `git checkout a1b2c3`.
+
+**7.  Crear una rama para experimentar**
+
+*  Utiliza el comando `git checkout -b <nombre_de_la_rama>` para crear una nueva rama y cambiar a ella. Esto te permite realizar cambios sin afectar la rama principal.
+    *  Por ejemplo, `git checkout -b nueva-característica`.
+
+**8.  Regresar a la rama principal**
+
+*  Utiliza el comando `git checkout master` para volver a la rama principal.
+
+**9.  Fusionar una rama con la principal**
+
+*  Utiliza el comando `git merge <nombre_de_la_rama>` para integrar los cambios de una rama en la rama principal.
+
+**Consejos para un flujo de trabajo eficiente:**
+
+* **Commits frecuentes:** Realiza commits con frecuencia, preferiblemente después de cada cambio significativo. Esto facilita la gestión del historial y la reversión de cambios.
+* **Mensajes descriptivos:** Utiliza mensajes de commit concisos y fáciles de entender. Describe qué has cambiado y por qué.
+* **Ramas separadas:** Utiliza ramas para diferentes características o correcciones de errores para mantener un código limpio y organizado.
+* **Utiliza herramientas:**  Utiliza interfaces gráficas de Git como GitKraken, SourceTree o plataformas como GitHub, GitLab o Bitbucket para facilitar el flujo de trabajo.
+
+
+
+**Ejemplo sencillo:**
+
+1. `git status` - Verifica el estado.
+2. `git add .` - Agrega todos los archivos modificados.
+3. `git commit -m "Actualizando la documentación"` - Confirma los cambios con un mensaje.
+4. `git log` - Verifica el historial de commits.
+5. `git checkout HEAD~1` - Vuelve al commit anterior.
+6. `git status` - Verifica los cambios no confirmados.
+7. `git checkout master` - Vuelve a la rama principal.
+
+## Moverse entre Commits en Git
+
+Git te permite navegar libremente por el historial de tu repositorio, revisando los cambios realizados en cada commit. Aquí tienes una guía detallada de los comandos esenciales para moverte entre commits:
+
+**1. Ver el Historial de Commits**
+
+* `git log`: Muestra un listado completo de todos los commits en el repositorio. Puedes usar las siguientes opciones para obtener información más detallada:
+    * `--pretty=oneline`: Muestra el historial en una sola línea, mostrando el ID del commit y el mensaje.
+    * `--graph`: Muestra un gráfico del historial de commits, mostrando las ramas y las fusiones.
+    * `--stat`: Muestra información sobre los archivos modificados en cada commit.
+    * `--author="Nombre del Autor"`: Filtra el historial por el autor de los commits.
+
+**2. Moverse a un Commit Específico**
+
+* `git checkout <id_del_commit>`: Te mueve a un commit específico, indicado por su ID. Puedes obtener el ID del commit desde la salida del comando `git log`. 
+    * Por ejemplo: `git checkout a1b2c3d` te mueve al commit con ID `a1b2c3d`.
+
+**3. Moverse entre Commits Relativos**
+
+* `git checkout HEAD^`:  Te mueve al commit anterior al actual.  Puedes usar `HEAD^^` para el commit de hace dos commits, `HEAD^^^` para el commit de hace tres commits, y así sucesivamente.
+* `git checkout HEAD~<número>`:  Te mueve al commit de hace `<número>` commits. Por ejemplo, `git checkout HEAD~3` te mueve al commit de hace tres commits.
+
+**4. Moverse a un Commit en una Rama**
+
+* `git checkout <nombre_de_rama>`: Te mueve a la rama especificada. Puedes usar el comando `git log` para ver el historial de commits de esa rama.
+
+**5. Ver los Cambios entre Commits**
+
+* `git diff <id_del_commit_inicial>..<id_del_commit_final>`: Muestra la diferencia entre dos commits específicos. 
+    * Por ejemplo: `git diff a1b2c3d..e4f5g6h` te mostrará los cambios entre los commits `a1b2c3d` y `e4f5g6h`.
+
+**6.  Moverse a un Commit Anterior y Crear una Rama**
+
+* `git checkout -b <nombre_de_la_rama> <id_del_commit>`: Te mueve a un commit específico y crea una nueva rama con el nombre indicado.
+
+**7.  Volver al Estado Actual**
+
+* `git checkout master`: Te mueve a la rama principal (`master`).
+* `git checkout HEAD`: Te mueve al estado actual del repositorio.
+
+**Ejemplos:**
+
+* **Ver el historial de commits:**  `git log --pretty=oneline --graph`
+* **Moverse al tercer commit anterior:**  `git checkout HEAD~3`
+* **Ver los cambios entre dos commits específicos:**  `git diff a1b2c3d..e4f5g6h`
+* **Crear una nueva rama a partir de un commit específico:** `git checkout -b rama_nueva a1b2c3d`
+
+**Recomendaciones:**
+
+* **Utiliza comandos descriptivos:** Es importante usar nombres de ramas y mensajes de commit claros para facilitar la navegación por el historial.
+* **Practica con frecuencia:** Experimentar con los comandos te ayudará a comprender mejor el funcionamiento de Git.
+* **Recuerda guardar tus cambios:** Antes de moverte entre commits, asegúrate de guardar los cambios que hayas realizado en tu repositorio.
+
+
+
+## Actividad: Gestión de Archivos con Git y GitHub (Python)
+
+**Objetivo:** Aprender a utilizar Git y GitHub para gestionar un proyecto de Python, realizando un seguimiento de los cambios en el código y colaborar con otros.
+
+**Pasos:**
+
+**1. Configurar el entorno:**
+
+-   **Instalar Git:** Si no lo tienes instalado, descarga e instala Git desde [https://git-scm.com/](https://git-scm.com/).
+-   **Crear una cuenta en GitHub:** Si no tienes una, crea una cuenta gratuita en [https://github.com/](https://github.com/).
+-   **Crear un repositorio en GitHub:** Ve a tu perfil de GitHub y crea un nuevo repositorio con el nombre "mi_proyecto_python". Deja la opción "Initialize this repository with a README" marcada y selecciona "Python" como lenguaje.
+
+**2. Crear el proyecto en local:**
+
+-   **Clonar el repositorio:** Abre una terminal o línea de comandos y clona el repositorio de GitHub en tu computadora local:
+    ```bash
+    git clone https://github.com/tu_usuario_github/mi_proyecto_python.git
+    ```
+    Reemplaza `tu_usuario_github` con tu nombre de usuario en GitHub.
+-   **Crear el archivo `main.py`:** Dentro de la carpeta `mi_proyecto_python`, crea un archivo llamado `main.py` con el siguiente código:
+
+    ```python
+    def saludar(nombre):
+        """
+        Función que saluda a una persona.
+
+        Args:
+            nombre: El nombre de la persona a la que se saluda.
+
+        Returns:
+            Un mensaje de saludo.
+        """
+        return f"¡Hola, {nombre}!"
+
+    if __name__ == "__main__":
+        nombre = input("Ingrese su nombre: ")
+        saludo = saludar(nombre)
+        print(saludo)
+    ```
+
+**3. Comenzar a trabajar con Git:**
+
+-   **Agregar el archivo al repositorio:**  Utiliza el comando `git add .` para agregar todos los archivos del proyecto al área de preparación (staging area).
+-   **Comentar los cambios:**  Utiliza el comando `git commit -m "Agregar archivo main.py"` para confirmar los cambios en el repositorio local.
+-   **Enviar los cambios a GitHub:** Utiliza el comando `git push origin main` para enviar los cambios del repositorio local al repositorio remoto en GitHub.
+
+**4. Realizar cambios y colaborar:**
+
+-   **Modificar el código:** Realiza cambios en el archivo `main.py`, por ejemplo, agrega una nueva función para despedirse:
+
+    ```python
+    def saludar(nombre):
+        """
+        Función que saluda a una persona.
+
+        Args:
+            nombre: El nombre de la persona a la que se saluda.
+
+        Returns:
+            Un mensaje de saludo.
+        """
+        return f"¡Hola, {nombre}!"
+
+    def despedirse(nombre):
+        """
+        Función que se despide de una persona.
+
+        Args:
+            nombre: El nombre de la persona a la que se despide.
+
+        Returns:
+            Un mensaje de despedida.
+        """
+        return f"¡Adiós, {nombre}!"
+
+    if __name__ == "__main__":
+        nombre = input("Ingrese su nombre: ")
+        saludo = saludar(nombre)
+        print(saludo)
+        despedida = despedirse(nombre)
+        print(despedida)
+    ```
+
+-   **Comentar y enviar los cambios:**  Repite los pasos de agregar, comentar y enviar los cambios a GitHub.
+-   **Crear una nueva rama:**  Utiliza el comando `git checkout -b nueva_caracteristica` para crear una nueva rama para trabajar en una nueva funcionalidad.
+-   **Trabajar en la nueva rama:** Realiza cambios en el archivo `main.py` en la nueva rama.
+-   **Comentar y enviar los cambios:** Repite los pasos de agregar, comentar y enviar los cambios a GitHub para la nueva rama.
+-   **Enviar una solicitud de fusión (pull request):**  En GitHub, ve a la sección de "Pull requests" y crea una nueva solicitud para fusionar la rama `nueva_caracteristica` con la rama principal (`main`). Escribe un mensaje explicando los cambios realizados y pide a otro usuario que revise tu código.
+-   **Fusionar la rama:**  Una vez que la solicitud de fusión sea revisada y aprobada, puedes fusionarla con la rama principal en GitHub.
+
+**5. Trabajar en equipo:**
+
+-   **Invitar a colaboradores:**  En GitHub, invita a otros usuarios a colaborar en el repositorio.
+-   **Clonar el repositorio:**  Los colaboradores pueden clonar el repositorio en su computadora local.
+-   **Trabajar en ramas:**  Los colaboradores pueden trabajar en sus propias ramas para desarrollar nuevas funcionalidades o corregir errores.
+-   **Enviar solicitudes de fusión:**  Los colaboradores pueden enviar solicitudes de fusión para integrar sus cambios en la rama principal.
+-   **Revisar código:**  Los colaboradores pueden revisar el código de otros usuarios y proporcionar comentarios.
