@@ -1,5 +1,162 @@
 ---
 sidebar_position: 7
-draft: true
+draft: false
 slug: /semana7
 ---
+
+# Semana 7
+
+## Entornos Virtuales en Python:
+
+Los entornos virtuales en Python son una herramienta esencial para gestionar las dependencias de tus proyectos. Permiten crear un espacio aislado para cada proyecto, evitando conflictos entre las librerías que utiliza cada uno.
+
+**¿Para qué sirven?**
+
+* **Aislamiento de dependencias:** Cada proyecto puede tener sus propias versiones de librerías, sin afectar a otros proyectos.
+* **Control de versiones:** Puedes crear un entorno virtual para cada versión de un proyecto, asegurando compatibilidad.
+* **Simplificación de la gestión de dependencias:** Facilita la instalación y actualización de librerías.
+
+**Creación de un entorno virtual:**
+
+```bash
+python -m venv myenv
+```
+
+**Activación del entorno virtual:**
+
+* **Windows:**
+```bash
+myenv\Scripts\activate
+```
+* **Linux/macOS:**
+```bash
+source myenv/bin/activate
+```
+
+**Comandos dentro del entorno virtual:**
+
+* **Instalación de paquetes:**
+```bash
+pip install <nombre_del_paquete>
+```
+Ejemplo:
+```bash
+pip install requests
+```
+
+* **Desinstalación de paquetes:**
+```bash
+pip uninstall <nombre_del_paquete>
+```
+
+* **Actualización de paquetes:**
+```bash
+pip install --upgrade <nombre_del_paquete>
+```
+
+* **Lista de paquetes instalados:**
+```bash
+pip freeze
+```
+
+* **Guardar las dependencias en un archivo:**
+```bash
+pip freeze > requirements.txt
+```
+Este comando crea un archivo `requirements.txt` que lista todas las dependencias del proyecto.
+
+* **Instalación de paquetes desde un archivo:**
+```bash
+pip install -r requirements.txt
+```
+
+* **Desactivación del entorno virtual:**
+```bash
+deactivate
+```
+
+## Ejemplo con Excel: Agregar datos al archivo
+
+**Proyecto de registro de asistencia:**
+
+1. **Creación del entorno virtual:**
+
+   ```bash
+   python -m venv attendance_tracker
+   ```
+
+2. **Activación del entorno:**
+
+   * **Windows:**
+     ```bash
+     attendance_tracker\Scripts\activate
+     ```
+   * **Linux/macOS:**
+     ```bash
+     source attendance_tracker/bin/activate
+     ```
+
+3. **Instalación de librerías:**
+
+   ```bash
+   pip install openpyxl
+   ```
+
+   * **openpyxl:** Librería para leer y escribir archivos de Excel, permite la interacción con hojas de cálculo.
+
+4. **Guardar las dependencias:**
+
+   ```bash
+   pip freeze > requirements.txt
+   ```
+
+5. **Desarrollo del proyecto:**
+
+   * **Cargar el archivo de Excel:** Utilizar `openpyxl` para abrir el archivo "asistencia.xlsx".
+   * **Obtener la hoja de cálculo:** Acceder a la hoja "Asistencia" del archivo.
+   * **Obtener la última fila:** Encontrar la última fila con datos en la hoja.
+   * **Agregar una nueva fila:** Insertar una nueva fila después de la última fila con datos.
+   * **Solicitar datos al usuario:** Pedir al usuario que ingrese el nombre, la fecha y la hora de entrada.
+   * **Escribir los datos en la nueva fila:** Escribir los datos del usuario en las celdas correspondientes de la nueva fila.
+   * **Guardar los cambios en el archivo:** Guardar los cambios realizados en el archivo "asistencia.xlsx".
+
+6. **Desactivación del entorno:**
+
+   ```bash
+   deactivate
+   ```
+
+**Beneficios de usar un entorno virtual en este proyecto:**
+
+* **Aislamiento de dependencias:** Evita conflictos con otras librerías que puedas estar usando en otros proyectos.
+* **Facilidad de colaboración:** Permite compartir el proyecto con otros desarrolladores, asegurándote de que las dependencias se instalen correctamente.
+* **Simplifica la gestión de versiones:** Puedes crear entornos virtuales para diferentes versiones del proyecto, manteniendo la compatibilidad con la librería openpyxl.
+
+**Ejemplo de código (registro de asistencia):**
+
+```python
+import openpyxl
+
+# Cargar el archivo de Excel
+workbook = openpyxl.load_workbook("asistencia.xlsx")
+sheet = workbook["Asistencia"]
+
+# Obtener la última fila con datos
+last_row = sheet.max_row
+
+# Agregar una nueva fila
+sheet.insert_rows(last_row + 1)
+
+# Solicitar datos al usuario
+nombre = input("Ingrese su nombre: ")
+fecha = input("Ingrese la fecha (AAAA-MM-DD): ")
+hora = input("Ingrese la hora de entrada (HH:MM): ")
+
+# Escribir los datos en la nueva fila
+sheet.cell(row=last_row + 1, column=1).value = nombre
+sheet.cell(row=last_row + 1, column=2).value = fecha
+sheet.cell(row=last_row + 1, column=3).value = hora
+
+# Guardar los cambios en el archivo
+workbook.save("asistencia.xlsx")
+```
