@@ -2,3 +2,63 @@
 sidebar_position: 1
 draft: true
 ---
+
+### 2. Evaluación de desempeño (60%)
+
+Crea un programa en Python que valide si una contraseña cumple con los siguientes criterios:
+
+* **Longitud mínima:** 8 caracteres.
+* **Mayúsculas:** Al menos una letra mayúscula.
+* **Minúsculas:** Al menos una letra minúscula.
+* **Números:** Al menos un número.
+* **Caracteres especiales:** Al menos un carácter especial (!@#$%^&*).
+
+**Pasos:**
+
+1. **Crea un repositorio en GitHub:** 
+    - Nombra el repositorio "validacion_contraseñas".
+    - Inicializa el repositorio con un archivo README.md.
+2. **Crea un archivo Python:**
+    - Crea un archivo llamado "validador.py" dentro del repositorio.
+3. **Implementa la lógica de validación:**
+    - Define una función llamada `validar_contraseña` que reciba la contraseña como argumento.
+    - Utiliza ciclos `for` para iterar sobre cada caracter de la contraseña.
+    - Utiliza condicionales `if` para verificar cada criterio de la contraseña.
+        - Longitud mínima.
+        - Mayúsculas.
+        - Minúsculas.
+        - Números.
+        - Caracteres especiales.
+    - Si la contraseña cumple con todos los criterios, retorna `True`.
+    - Si no cumple, retorna `False`.
+4. **Solicitar contraseña al usuario:**
+    - Escribe un código que solicite al usuario ingresar una contraseña.
+5. **Llama a la función de validación:**
+    - Llama a la función `validar_contraseña` con la contraseña ingresada por el usuario.
+6. **Mostrar resultado:**
+    - Imprime un mensaje indicando si la contraseña es válida o no.
+7. **Comprobar código:**
+    - Prueba el código con diferentes contraseñas para asegurarte de que funciona correctamente.
+8. **Documenta el código:**
+    - Agrega comentarios al código para explicar su funcionamiento.
+9. **Agregar pruebas unitarias:**
+    - Crea un archivo separado llamado "test_validador.py" con pruebas unitarias para la función `validar_contraseña`.
+10. **Subir los cambios a GitHub:**
+    - Guarda los cambios y súbelos al repositorio en GitHub.
+    - Agrega un commit con un mensaje descriptivo.
+    - Empuja los cambios al repositorio remoto.
+
+**Ayuda:**
+
+* Puedes utilizar la función `len()` para obtener la longitud de la contraseña.
+* Puedes utilizar la función `isupper()`, `islower()` y `isdigit()` para verificar el tipo de carácter.
+* Puedes crear una lista de caracteres especiales para verificar su presencia.
+* Utiliza la función `print()` para mostrar mensajes al usuario.
+
+**Entrega:**
+
+*  Comparte el enlace de tu repositorio de GitHub en el archivo de evidencias de tu carpeta compartida en la semana 6.
+
+:::warning
+Nota: No se aceptarán actualizaciones al repositorio después de la fecha y hora de entrega.
+:::
