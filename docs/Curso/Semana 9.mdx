@@ -3,3 +3,449 @@ sidebar_position: 9
 draft: true
 slug: /semana9
 ---
+# Semana 9
+
+## Exploración de datos con Pandas: Inspección básica y estadísticas descriptivas
+
+En esta sesión, aprenderemos a explorar nuestros datos utilizando Pandas, lo que nos permitirá obtener una comprensión inicial del conjunto de datos y preparar el terreno para análisis más profundos.
+
+**1. Inspección básica:**
+
+* **Cargando datos:** Usaremos la función `read_csv()` para cargar un archivo CSV en un DataFrame de Pandas. 
+    ```python
+    import pandas as pd
+    df = pd.read_csv('mi_archivo.csv') 
+    ```
+
+* **Mostrando las primeras filas:** La función `head()` muestra las primeras filas del DataFrame.
+    ```python
+    df.head()
+    ```
+
+* **Mostrando las últimas filas:** La función `tail()` muestra las últimas filas del DataFrame.
+    ```python
+    df.tail()
+    ```
+
+* **Información general:** La función `info()` proporciona un resumen de la estructura del DataFrame, incluyendo los tipos de datos, cantidad de filas y columnas, y si hay valores faltantes.
+    ```python
+    df.info()
+    ```
+
+* **Dimensiones del DataFrame:**  La función `shape()` nos devuelve una tupla con la cantidad de filas y columnas del DataFrame.
+    ```python
+    df.shape
+    ```
+
+**2. Estadísticas descriptivas:**
+
+* **Resumen estadístico:** La función `describe()` calcula estadísticas descriptivas de las columnas numéricas del DataFrame, incluyendo la media, desviación estándar, mínimo, máximo, etc.
+    ```python
+    df.describe()
+    ```
+
+* **Estadísticas individuales:** Puedes acceder a estadísticas individuales de una columna específica utilizando su nombre y los métodos de agregación correspondientes.
+    ```python
+    df['columna_numerica'].mean() 
+    df['columna_numerica'].std()
+    df['columna_numerica'].max()
+    ```
+
+* **Valores únicos:** La función `unique()` nos devuelve un array con los valores únicos de una columna.
+    ```python
+    df['columna_categorica'].unique()
+    ```
+
+* **Conteo de valores:** La función `value_counts()` cuenta la cantidad de ocurrencias de cada valor único en una columna.
+    ```python
+    df['columna_categorica'].value_counts()
+    ```
+
+**Ejemplo:**
+
+```python
+import pandas as pd
+
+# Cargar los datos desde un archivo CSV
+df = pd.read_csv('ventas.csv')
+
+# Mostrar las primeras 5 filas
+print(df.head())
+
+# Mostrar la información general del DataFrame
+print(df.info())
+
+# Calcular estadísticas descriptivas
+print(df.describe())
+
+# Encontrar los valores únicos de la columna "Producto"
+print(df['Producto'].unique())
+
+# Contar las ocurrencias de cada valor en la columna "Categoría"
+print(df['Categoría'].value_counts())
+```
+
+### Actividad 1
+
+1. Carga el archivo "datos_demograficos.csv" en un DataFrame de Pandas.
+```txt title="datos_demograficos.csv"
+Nombre,País,Edad,Género,Peso,Altura
+Juan Pérez,España,28,Masculino,80,1.75
+Ana García,Argentina,35,Femenino,65,1.60
+Carlos Rodríguez,México,22,Masculino,75,1.80
+Maria López,Colombia,40,Femenino,70,1.65
+Pedro González,Brasil,32,Masculino,85,1.85
+Laura Martínez,Chile,26,Femenino,58,1.62
+Miguel Sánchez,Perú,38,Masculino,90,1.90
+Sofia Torres,Venezuela,29,Femenino,60,1.58
+David Fernández,Ecuador,31,Masculino,78,1.78
+Isabel Ramos,Uruguay,24,Femenino,55,1.55
+Francisco Moreno,Bolivia,36,Masculino,82,1.82
+Elena Ruiz,Paraguay,27,Femenino,62,1.60
+José Garcia,República Dominicana,30,Masculino,88,1.88
+Marta González,Panamá,25,Femenino,57,1.57
+Luis Hernandez,Guatemala,34,Masculino,84,1.84
+Patricia Rodriguez,Honduras,23,Femenino,56,1.56
+Alberto Jimenez,Nicaragua,39,Masculino,92,1.92
+Beatriz Lopez,El Salvador,28,Femenino,59,1.59
+Ricardo Garcia,Costa Rica,33,Masculino,86,1.86
+Adriana Rodriguez,Panamá,27,Femenino,63,1.61
+Fernando Hernandez,Guatemala,31,Masculino,80,1.80
+Gabriela Lopez,Honduras,26,Femenino,58,1.58
+Sergio Jimenez,Nicaragua,35,Masculino,85,1.85
+Carmen Garcia,Costa Rica,29,Femenino,62,1.60
+Manuel Hernandez,El Salvador,32,Masculino,82,1.82
+Olivia Lopez,Panamá,25,Femenino,55,1.55
+Daniel Garcia,Guatemala,28,Masculino,78,1.78
+Ana Hernandez,Honduras,24,Femenino,57,1.57
+Pablo Jimenez,Nicaragua,31,Masculino,86,1.86
+Sofia Garcia,Costa Rica,27,Femenino,60,1.60
+Miguel Hernandez,El Salvador,30,Masculino,84,1.84
+Laura Lopez,Panamá,26,Femenino,59,1.59
+Alejandro Jimenez,Nicaragua,33,Masculino,82,1.82
+Maria Garcia,Costa Rica,29,Femenino,61,1.61
+David Hernandez,El Salvador,32,Masculino,88,1.88
+Isabel Lopez,Panamá,28,Femenino,58,1.58
+Francisco Garcia,Guatemala,31,Masculino,80,1.80
+Elena Hernandez,Honduras,27,Femenino,62,1.60
+José Jimenez,Nicaragua,35,Masculino,86,1.86
+Marta Garcia,Costa Rica,30,Femenino,63,1.61
+Luis Hernandez,El Salvador,34,Masculino,84,1.84
+Patricia Jimenez,Nicaragua,29,Femenino,59,1.59
+Alberto Garcia,Costa Rica,33,Masculino,82,1.82
+Beatriz Hernandez,El Salvador,28,Femenino,61,1.61
+Ricardo Jimenez,Nicaragua,32,Masculino,88,1.88
+Adriana Garcia,Costa Rica,27,Femenino,60,1.60
+Fernando Hernandez,El Salvador,31,Masculino,86,1.86
+Gabriela Jimenez,Nicaragua,26,Femenino,59,1.59
+```
+2. Muestra las primeras 5 filas del DataFrame.
+3. Obtén la información general del DataFrame.
+4. Calcula las estadísticas descriptivas de las columnas numéricas.
+5. Encuentra los valores únicos de la columna "País".
+6. Cuenta la cantidad de ocurrencias de cada valor en la columna "Género".
+
+## Selección, filtrado y transformación de datos con Pandas
+
+En esta sesión, profundizaremos en las técnicas de selección, filtrado y transformación de datos con Pandas, lo que nos permitirá manipular los datos de forma precisa y eficiente.
+
+**1. Acceso a datos:**
+
+* **Indexación:** Podemos acceder a los datos del DataFrame mediante el uso de índices numéricos o de etiquetas (nombres de filas y columnas).
+
+    ```python
+    # Acceso por índice numérico:
+    df.iloc[0]  # Primera fila
+    df.iloc[0:3]  # Primeras 3 filas
+    df.iloc[:, 0]  # Primera columna
+    df.iloc[1, 2]  # Valor en la fila 2, columna 3
+
+    # Acceso por etiquetas:
+    df.loc['fila_1']  # Fila con etiqueta 'fila_1'
+    df.loc['fila_1':'fila_3']  # Filas con etiquetas 'fila_1' a 'fila_3'
+    df.loc[:, 'columna_1']  # Columna con etiqueta 'columna_1'
+    df.loc['fila_2', 'columna_3']  # Valor en la fila 'fila_2', columna 'columna_3'
+    ```
+
+* **Selección de columnas:** Podemos seleccionar columnas específicas por su nombre:
+
+    ```python
+    df[['columna_1', 'columna_3']]  # Selección de columnas 'columna_1' y 'columna_3'
+    ```
+
+* **Atributos de columna:** Podemos acceder a propiedades como el nombre de la columna o su tipo de dato:
+
+    ```python
+    df.columns  # Nombres de las columnas
+    df['columna_1'].dtype  # Tipo de dato de la columna 'columna_1'
+    ```
+
+**2. Filtrado de datos:**
+
+* **Filtrado por condiciones:** Podemos filtrar el DataFrame utilizando operadores de comparación y condiciones lógicas.
+
+    ```python
+    df[df['columna_1'] > 10]  # Filtrar filas donde 'columna_1' es mayor que 10
+    df[df['columna_2'] == 'valor_especifico']  # Filtrar filas donde 'columna_2' es igual a 'valor_especifico'
+    df[(df['columna_1'] > 5) & (df['columna_2'] < 20)]  # Combinar condiciones con operadores lógicos
+    ```
+
+* **Filtrado con `query()`:** La función `query()` permite filtrar el DataFrame usando expresiones de texto similares a las usadas en SQL.
+
+    ```python
+    df.query('columna_1 > 10')  # Similar a la primera condición del ejemplo anterior
+    ```
+
+**3. Transformación de datos:**
+
+* **Operaciones con columnas:**  Podemos aplicar operaciones matemáticas, estadísticas o de cadena a las columnas del DataFrame.
+
+    ```python
+    df['columna_1'] + 5  # Sumar 5 a todos los valores de 'columna_1'
+    df['columna_2'].str.upper()  # Convertir a mayúsculas todos los valores de 'columna_2'
+    df['columna_3'].fillna(0)  # Rellenar valores nulos de 'columna_3' con 0
+    ```
+
+* **Creación de nuevas columnas:**  Podemos crear nuevas columnas a partir de operaciones con otras columnas o a través de funciones.
+
+    ```python
+    df['nueva_columna'] = df['columna_1'] * df['columna_2']  # Multiplicar dos columnas existentes
+    df['fecha_formateada'] = pd.to_datetime(df['fecha'])  # Convertir columna de fechas al formato deseado
+    ```
+
+* **Eliminación de columnas:** Podemos eliminar columnas con el método `drop()`.
+
+    ```python
+    df.drop('columna_a_eliminar', axis=1)  # Eliminar columna 'columna_a_eliminar'
+    ```
+
+**Ejemplo:**
+
+```python
+import pandas as pd
+
+df = pd.read_csv('datos_demograficos.csv')
+
+# Selección de filas con índice 0 a 3
+print(df.iloc[0:4])
+
+# Selección de columna 'Edad'
+print(df[['Edad']])
+
+# Filtrar filas donde 'Edad' es mayor que 30
+print(df[df['Edad'] > 30])
+
+# Crear una nueva columna 'Edad_doble'
+df['Edad_doble'] = df['Edad'] * 2
+
+# Eliminar la columna 'Edad_doble'
+df.drop('Edad_doble', axis=1, inplace=True)
+
+print(df.head())
+```
+
+### Actividad 2
+
+1. Carga el archivo "ventas.csv" en un DataFrame de Pandas.
+```txt title="ventas.csv"
+Fecha,Producto,Categoría,Precio,Cantidad
+2023-08-15,Laptop,Electrónicos,5000000,1
+2023-08-15,Mouse,Electrónicos,100000,2
+2023-08-15,Auriculares,Electrónicos,300000,3
+2023-08-15,Camiseta,Ropa,80000,5
+2023-08-15,Pantalón,Ropa,200000,2
+2023-08-16,Monitor,Electrónicos,1200000,1
+2023-08-16,Teclado,Electrónicos,200000,1
+2023-08-16,Zapatos,Ropa,320000,2
+2023-08-16,Libro,Libros,60000,3
+2023-08-16,Silla,Mobilia,400000,1
+2023-08-17,Impresora,Electrónicos,800000,1
+2023-08-17,Teléfono,Electrónicos,2000000,1
+2023-08-17,Vestido,Ropa,160000,2
+2023-08-17,Bolso,Accesorios,120000,1
+2023-08-17,Mesa,Mobilia,1000000,1
+2023-08-18,Tablet,Electrónicos,1400000,1
+2023-08-18,Disco duro,Electrónicos,400000,2
+2023-08-18,Camisa,Ropa,60000,3
+2023-08-18,Pantalones cortos,Ropa,120000,1
+2023-08-18,Lámpara,Iluminación,200000,2
+2023-08-19,Memoria RAM,Electrónicos,320000,2
+2023-08-19,Cargador,Electrónicos,80000,1
+2023-08-19,Falda,Ropa,140000,2
+2023-08-19,Reloj,Accesorios,280000,1
+2023-08-19,Sillón,Mobilia,600000,1
+2023-08-20,Audifonos,Electrónicos,200000,2
+2023-08-20,Batería externa,Electrónicos,120000,3
+2023-08-20,Blusa,Ropa,100000,4
+2023-08-20,Corbata,Accesorios,60000,1
+2023-08-20,Escritorio,Mobilia,1200000,1
+2023-08-21,Router,Electrónicos,400000,1
+2023-08-21,Webcam,Electrónicos,200000,2
+2023-08-21,Pantalones de yoga,Ropa,160000,2
+2023-08-21,Anillo,Accesorios,80000,1
+2023-08-21,Cama,Mobilia,1600000,1
+2023-08-22,Tarjeta de sonido,Electrónicos,280000,1
+2023-08-22,Ratón inalámbrico,Electrónicos,140000,2
+2023-08-22,Chaqueta,Ropa,280000,1
+2023-08-22,Collar,Accesorios,60000,2
+2023-08-22,Estantería,Mobilia,320000,1
+2023-08-23,Disco externo,Electrónicos,480000,1
+2023-08-23,Suéter,Ropa,180000,2
+2023-08-23,Pulsera,Accesorios,40000,3
+2023-08-23,Armario,Mobilia,800000,1
+2023-08-24,Cable HDMI,Electrónicos,60000,2
+2023-08-24,Jersey,Ropa,120000,1
+2023-08-24,Pendientes,Accesorios,48000,2
+2023-08-24,Cómoda,Mobilia,600000,1
+```
+2. Selecciona las filas con índices 5 a 10.
+3. Selecciona las columnas 'Producto' y 'Precio'.
+4. Filtra las filas donde el 'Precio' es mayor que 100.
+5. Crea una nueva columna llamada 'Descuento' con un 10% del 'Precio'.
+6. Elimina la columna 'Descuento' del DataFrame.
+
+
+
+
+## Exploración y Filtrado de Datos en el Archivo 'educacion.csv'
+
+### Actividad 3
+
+1. Carga el archivo "educacion.csv" en un DataFrame de Pandas.
+```txt title="educacion.csv"
+Nombre,País,Edad,Nivel_Educativo,Carrera,Institución
+Juan Pérez,España,28,Universitario,Ingeniería Informática,Universidad Complutense de Madrid
+Ana García,Argentina,35,Posgrado,Maestría en Administración de Empresas,Universidad de Buenos Aires
+Carlos Rodríguez,México,22,Universitario,Medicina,Universidad Nacional Autónoma de México
+Maria López,Colombia,40,Universitario,Psicología,Universidad de los Andes
+Pedro González,Brasil,32,Universitario,Derecho,Universidad de São Paulo
+Laura Martínez,Chile,26,Universitario,Ciencias de la Comunicación,Universidad de Chile
+Miguel Sánchez,Perú,38,Universitario,Ingeniería Civil,Universidad Nacional de Ingeniería
+Sofia Torres,Venezuela,29,Universitario,Arquitectura,Universidad Central de Venezuela
+David Fernández,Ecuador,31,Universitario,Administración de Empresas,Universidad de Guayaquil
+Isabel Ramos,Uruguay,24,Universitario,Contabilidad,Universidad de la República
+Francisco Moreno,Bolivia,36,Universitario,Economía,Universidad Mayor de San Andrés
+Elena Ruiz,Paraguay,27,Universitario,Biología,Universidad Nacional de Asunción
+José Garcia,República Dominicana,30,Universitario,Ingeniería Industrial,Universidad Autónoma de Santo Domingo
+Marta González,Panamá,25,Universitario,Comunicación Social,Universidad de Panamá
+Luis Hernandez,Guatemala,34,Universitario,Derecho,Universidad de San Carlos de Guatemala
+Patricia Rodriguez,Honduras,23,Universitario,Enfermería,Universidad Nacional Autónoma de Honduras
+Alberto Jimenez,Nicaragua,39,Posgrado,Doctorado en Ingeniería,Universidad Nacional de Ingeniería
+Beatriz Lopez,El Salvador,28,Universitario,Literatura,Universidad de El Salvador
+Ricardo Garcia,Costa Rica,33,Universitario,Ciencias Políticas,Universidad de Costa Rica
+Adriana Rodriguez,Panamá,27,Universitario,Mercadotecnia,Universidad de Panamá
+Fernando Hernandez,Guatemala,31,Universitario,Ingeniería Mecánica,Universidad de San Carlos de Guatemala
+Gabriela Lopez,Honduras,26,Universitario,Nutrición,Universidad Nacional Autónoma de Honduras
+Sergio Jimenez,Nicaragua,35,Posgrado,Maestría en Derecho,Universidad Nacional Autónoma de Nicaragua
+Carmen Garcia,Costa Rica,29,Universitario,Turismo,Universidad de Costa Rica
+Manuel Hernandez,El Salvador,32,Universitario,Ingeniería Química,Universidad de El Salvador
+Olivia Lopez,Panamá,25,Universitario,Educación,Universidad de Panamá
+Daniel Garcia,Guatemala,28,Universitario,Ingeniería Eléctrica,Universidad de San Carlos de Guatemala
+Ana Hernandez,Honduras,24,Universitario,Psicología,Universidad Nacional Autónoma de Honduras
+Pablo Jimenez,Nicaragua,31,Universitario,Medicina,Universidad Nacional Autónoma de Nicaragua
+Sofia Garcia,Costa Rica,27,Universitario,Artes,Universidad de Costa Rica
+Miguel Hernandez,El Salvador,30,Universitario,Ciencias de la Computación,Universidad de El Salvador
+Laura Lopez,Panamá,26,Universitario,Lingüística,Universidad de Panamá
+Alejandro Jimenez,Nicaragua,33,Universitario,Ciencias Ambientales,Universidad Nacional Autónoma de Nicaragua
+Maria Garcia,Costa Rica,29,Universitario,Periodismo,Universidad de Costa Rica
+David Hernandez,El Salvador,32,Universitario,Arquitectura,Universidad de El Salvador
+Isabel Lopez,Panamá,28,Universitario,Diseño Gráfico,Universidad de Panamá
+Francisco Garcia,Guatemala,31,Universitario,Ingeniería Civil,Universidad de San Carlos de Guatemala
+Elena Hernandez,Honduras,27,Universitario,Enfermería,Universidad Nacional Autónoma de Honduras
+José Jimenez,Nicaragua,35,Posgrado,Doctorado en Economía,Universidad Nacional Autónoma de Nicaragua
+Marta Garcia,Costa Rica,30,Universitario,Ciencias de la Educación,Universidad de Costa Rica
+Luis Hernandez,El Salvador,34,Universitario,Historia,Universidad de El Salvador
+Patricia Jimenez,Nicaragua,29,Universitario,Derecho,Universidad Nacional Autónoma de Nicaragua
+Alberto Garcia,Costa Rica,33,Universitario,Sociología,Universidad de Costa Rica
+Beatriz Hernandez,El Salvador,28,Universitario,Música,Universidad de El Salvador
+Ricardo Jimenez,Nicaragua,32,Universitario,Ingeniería Industrial,Universidad Nacional Autónoma de Nicaragua
+Adriana Garcia,Costa Rica,27,Universitario,Marketing,Universidad de Costa Rica
+Fernando Hernandez,El Salvador,31,Universitario,Contabilidad,Universidad de El Salvador
+Gabriela Jimenez,Nicaragua,26,Universitario,Administración de Empresas,Universidad Nacional Autónoma de Nicaragua
+```
+Este archivo CSV contiene información sobre la educación de 50 personas, incluyendo su nombre, país, edad, nivel educativo, carrera y la institución donde estudiaron.  Puedes usar este archivo para practicar el análisis de datos con Pandas, explorando la distribución de los niveles educativos, las carreras más populares o las instituciones más comunes. 
+
+**Objetivo:** Familiarizarte con la exploración y filtrado de datos utilizando Pandas en Python.
+
+**Paso 1: Importación de las bibliotecas y carga de datos:**
+
+```python
+import pandas as pd
+
+# Carga el archivo CSV en un DataFrame
+df = pd.read_csv('educacion.csv')
+```
+
+**Paso 2: Inspección básica:**
+
+* **Muestra las primeras 5 filas:**
+    ```python
+    print(df.head())
+    ```
+
+* **Muestra la información general del DataFrame:**
+    ```python
+    print(df.info())
+    ```
+
+* **Muestra las estadísticas descriptivas de las columnas numéricas:**
+    ```python
+    print(df.describe())
+    ```
+
+**Paso 3: Exploración de datos:**
+
+* **¿Cuáles son los niveles educativos más comunes?**
+    ```python
+    print(df['Nivel_Educativo'].value_counts())
+    ```
+
+* **¿Cuál es la carrera más popular?**
+    ```python
+    print(df['Carrera'].value_counts().idxmax())
+    ```
+
+* **¿Cuál es la institución con más estudiantes?**
+    ```python
+    print(df['Institución'].value_counts().idxmax())
+    ```
+
+**Paso 4: Filtrado de datos:**
+
+* **Filtra los estudiantes que tienen un posgrado:**
+    ```python
+    df_posgrado = df[df['Nivel_Educativo'] == 'Posgrado']
+    print(df_posgrado)
+    ```
+
+* **Filtra los estudiantes de Ingeniería Informática de la Universidad Complutense de Madrid:**
+    ```python
+    df_ingenieria_madrid = df[(df['Carrera'] == 'Ingeniería Informática') & (df['Institución'] == 'Universidad Complutense de Madrid')]
+    print(df_ingenieria_madrid)
+    ```
+
+* **Filtra los estudiantes de Honduras que tienen un nivel educativo universitario:**
+    ```python
+    df_honduras_universitario = df[(df['País'] == 'Honduras') & (df['Nivel_Educativo'] == 'Universitario')]
+    print(df_honduras_universitario)
+    ```
+
+**Paso 5: Análisis adicional:**
+
+* **Crea una tabla de frecuencia que muestre la cantidad de estudiantes por país y nivel educativo.**
+    ```python
+    print(pd.crosstab(df['País'], df['Nivel_Educativo']))
+    ```
+
+* **Calcula la edad promedio de los estudiantes por nivel educativo.**
+    ```python
+    print(df.groupby('Nivel_Educativo')['Edad'].mean())
+    ```
+
+**Paso 6: Guardar los resultados:**
+
+* **Guarda el DataFrame filtrado 'df_posgrado' en un nuevo archivo CSV:**
+    ```python
+    df_posgrado.to_csv('posgrado.csv', index=False) 
+    ```
+
