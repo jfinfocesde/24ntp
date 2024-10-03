@@ -28,7 +28,7 @@ const config: Config = {
     defaultLocale: 'en',
     locales: ['en'],
   },
-  plugins: [
+  plugins: [ 
     async function myPlugin(context, options) {
       return {
         name: "docusaurus-tailwindcss",
@@ -39,7 +39,7 @@ const config: Config = {
           return postcssOptions;
         },
       };
-    },
+    },    
   ],
   presets: [
     [
@@ -139,6 +139,10 @@ const config: Config = {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
     },
+    metadata: [{
+      name: 'content-security-policy',
+      content: "frame-src 'self' colab.research.google.com;"
+    }],
    
   } satisfies Preset.ThemeConfig,
 };
