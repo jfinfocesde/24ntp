@@ -6,20 +6,403 @@ slug: /semana10
 
 # Semana 10
 
-import GoogleColab from '@site/src/components/GoogleColab';
+## Agrupación y Resumen en Pandas
 
-<GoogleColab 
-  notebookUrl="https://colab.research.google.com/drive/1aWSEIqIXUQrEw7-uxY4oyn5M0fCr1uN3?usp=sharing"
-  height="800px" 
-/>
+La agrupación y el resumen son herramientas esenciales en el análisis de datos, y Pandas te ofrece una forma eficiente de realizar estas operaciones. Este es un desglose detallado de cómo funcionan estas funciones en Pandas:
 
-  <div class="notebook-container">
-        <iframe 
-            class="notebook-iframe"
-            src="https://www.kaggle.com/code/jfinfocesde/notebook0565bba9f2"
-            sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
-            frameborder="0"
-            scrolling="auto"
-            allowfullscreen
-        ></iframe>
-    </div>
+### **1. Agrupando datos por columnas:**
+
+La función `groupby` de Pandas te permite agrupar datos por una o más columnas. Esto significa que puedes dividir tu DataFrame en subconjuntos basados en los valores únicos de las columnas elegidas.
+
+**Ejemplo:**
+
+```python
+import pandas as pd
+
+data = {'Nombre': ['Ana', 'Juan', 'Pedro', 'Ana', 'Juan', 'Pedro'],
+        'Edad': [25, 30, 28, 25, 32, 29],
+        'Ciudad': ['Madrid', 'Barcelona', 'Sevilla', 'Madrid', 'Barcelona', 'Sevilla']}
+
+df = pd.DataFrame(data)
+
+# Agrupando por 'Ciudad':
+grouped_city = df.groupby('Ciudad') 
+print(grouped_city)  # Muestra el objeto GroupBy
+```
+
+En este caso, el objeto `grouped_city` contiene ahora los datos agrupados por la columna 'Ciudad'. Esto no muestra los datos agrupados aún, solo crea el objeto.
+
+### **2. Aplicando funciones de resumen a grupos:**
+
+Una vez que tienes grupos, puedes aplicar funciones de resumen (como `sum`, `mean`, `count`, `max`, `min`, `std`, etc.) a los grupos. Estas funciones se aplican a cada grupo individualmente.
+
+**Ejemplo:**
+
+```python
+# Calculando la edad promedio por ciudad:
+edad_promedio = grouped_city['Edad'].mean()
+print(edad_promedio) 
+
+# Contando el número de personas por ciudad:
+conteo_personas = grouped_city['Nombre'].count()
+print(conteo_personas) 
+```
+
+### **3. Creando tablas de resumen con `groupby` y `agg`:**
+
+Para crear tablas de resumen con múltiples funciones de resumen a la vez, puedes usar `agg`.
+
+**Ejemplo:**
+
+```python
+# Creando una tabla de resumen con varias funciones:
+resumen_ciudad = grouped_city.agg({'Edad': ['mean', 'max', 'min'], 'Nombre': 'count'})
+print(resumen_ciudad) 
+```
+
+**Explicación:**
+
+* `agg({'Edad': ['mean', 'max', 'min'], 'Nombre': 'count'})`: 
+    * `Edad`: Aplica las funciones `mean`, `max` y `min` a la columna 'Edad'.
+    * `Nombre`: Aplica la función `count` a la columna 'Nombre'.
+
+**Resumen de las funciones de resumen más comunes:**
+
+* **`mean`**: Media aritmética
+* **`sum`**: Suma total
+* **`count`**: Número de elementos no nulos
+* **`max`**: Valor máximo
+* **`min`**: Valor mínimo
+* **`std`**: Desviación estándar
+* **`median`**: Mediana
+* **`nunique`**: Número de valores únicos
+* **`first`**: Primer valor
+* **`last`**: Último valor
+
+## Modificación de DataFrames en Python:
+
+Los DataFrames son estructuras de datos tabulares en Python, manejados principalmente por la librería Pandas. Son esenciales para el análisis de datos porque permiten manipular información de manera eficiente. 
+
+Aquí te presento una guía completa con ejemplos de cómo modificar un DataFrame en Pandas, incluyendo la adición de columnas:
+
+### **1. Agregar, Eliminar y Renombrar Filas y Columnas:**
+
+**1.1 Agregar Filas:**
+
+* **`concat()`:** Combina DataFrames horizontal o verticalmente. Es la forma recomendada para agregar filas a un DataFrame.
+
+    ```python
+    import pandas as pd
+
+    df = pd.DataFrame({'Nombre': ['Ana', 'Carlos'], 'Edad': [25, 30]})
+    print("DataFrame inicial:\n", df)
+
+    nueva_fila = pd.DataFrame({'Nombre': ['Diana'], 'Edad': [28]})
+
+    # Usando concat() para agregar la nueva fila al DataFrame original
+    df = pd.concat([df, nueva_fila], ignore_index=True)
+    print("\nDataFrame con fila agregada (concat):\n", df)
+    ```
+
+* **`loc`:** Crea nuevas filas con valores específicos.
+
+    ```python
+    df.loc[len(df)] = ['Emilio', 27]
+    print("\nDataFrame con fila agregada (loc):\n", df) 
+    ```
+
+**1.2 Eliminar Filas:**
+
+* **`drop()`:** Elimina filas por índice o por etiqueta. **Para usar `drop()` con etiquetas, asegúrate de que el DataFrame tenga un índice de etiquetas (no un índice numérico por defecto).**
+
+    ```python
+    # DataFrame con índice de etiquetas:
+    df = pd.DataFrame({'Nombre': ['Ana', 'Carlos'], 'Edad': [25, 30]}, index=['Ana', 'Carlos'])
+    print("DataFrame con índice de etiquetas:\n", df)
+
+    df = df.drop(index='Ana', axis=0) 
+    print("\nDataFrame con fila eliminada (etiqueta):\n", df)
+    ```
+
+* **`iloc`:** Selecciona filas para su eliminación.
+
+    ```python
+    df = pd.DataFrame({'Nombre': ['Ana', 'Carlos', 'Diana', 'Emilio'], 'Edad': [25, 30, 28, 27]})
+    print("DataFrame con índice numérico:\n", df)
+
+    df = df.drop(df.index[2]) # Elimina la tercera fila (en este caso, la fila con 'Diana')
+    print("\nDataFrame con fila eliminada (posición):\n", df)
+    ```
+
+**1.3 Eliminar Columnas:**
+
+* **`drop()`:** Elimina columnas por nombre.
+
+    ```python
+    df = pd.DataFrame({'Nombre': ['Ana', 'Carlos'], 'Edad': [25, 30]})
+    print("DataFrame inicial:\n", df)
+
+    df = df.drop(columns=['Edad'])
+    print("\nDataFrame con columna eliminada:\n", df)
+    ```
+
+* **`del`:**  Elimina columnas por nombre.
+
+    ```python
+    df = pd.DataFrame({'Nombre': ['Ana', 'Carlos'], 'Edad': [25, 30]})
+    print("DataFrame inicial:\n", df)
+
+    del df['Nombre']  # Elimina la columna 'Nombre'
+    print("\nDataFrame con columna eliminada (del):\n", df)
+    ```
+
+**1.4 Renombrar Filas y Columnas:**
+
+* **`rename()`:** Renombra filas o columnas por índice o etiqueta.
+
+    ```python
+    df = pd.DataFrame({'Nombre': ['Ana', 'Carlos'], 'Edad': [25, 30]})
+    print("DataFrame inicial:\n", df)
+
+    df = df.rename(columns={'Edad': 'Años'})
+    print("\nDataFrame con columna renombrada:\n", df)
+
+    df = df.rename(index={0: 'Ana', 1: 'Emilio'})
+    print("\nDataFrame con filas renombradas:\n", df)
+    ```
+
+### **2. Agregar Columnas:**
+
+* **Añadir una nueva columna con un valor constante:**
+
+    ```python
+    df = pd.DataFrame({'Nombre': ['Ana', 'Carlos', 'Diana', 'Emilio'], 'Edad': [25, 30, 28, 27]})
+    print("DataFrame inicial:\n", df)
+
+    # Agregar una columna llamada 'Ciudad' con el valor 'Madrid' para todas las filas
+    df['Ciudad'] = 'Madrid'
+    print("\nDataFrame con columna agregada (valor constante):\n", df)
+    ```
+
+* **Añadir una columna basada en una lista de valores:**
+
+    ```python
+    df = pd.DataFrame({'Nombre': ['Ana', 'Carlos', 'Diana', 'Emilio'], 'Edad': [25, 30, 28, 27]})
+    print("DataFrame inicial:\n", df)
+
+    # Agregar una columna llamada 'Profesión' con valores específicos para cada fila
+    df['Profesión'] = ['Ingeniera', 'Médico', 'Artista', 'Escritor']
+    print("\nDataFrame con columna agregada (lista de valores):\n", df)
+    ```
+
+* **Añadir una columna a partir de otra columna:**
+
+    ```python
+    df = pd.DataFrame({'Nombre': ['Ana', 'Carlos', 'Diana', 'Emilio'], 'Edad': [25, 30, 28, 27]})
+    print("DataFrame inicial:\n", df)
+
+    # Agregar una columna llamada 'EdadDuplicada' duplicando los valores de la columna 'Edad'
+    df['EdadDuplicada'] = df['Edad'] * 2
+    print("\nDataFrame con columna agregada (basada en otra columna):\n", df)
+    ```
+
+* **Añadir una columna a partir de una función aplicada a otra columna:**
+
+    ```python
+    df = pd.DataFrame({'Nombre': ['Ana', 'Carlos', 'Diana', 'Emilio'], 'Edad': [25, 30, 28, 27]})
+    print("DataFrame inicial:\n", df)
+
+    # Agregar una columna llamada 'EdadMás10' sumando 10 a cada valor de la columna 'Edad'
+    df['EdadMás10'] = df['Edad'].apply(lambda x: x + 10)
+    print("\nDataFrame con columna agregada (función aplicada):\n", df)
+    ```
+
+### **3. Modificar Valores en DataFrames:**
+
+* **`loc`:** Selecciona una celda y cambia su valor.
+
+    ```python
+    df = pd.DataFrame({'Nombre': ['Ana', 'Carlos', 'Diana', 'Emilio'], 'Edad': [25, 30, 28, 27]})
+    print("DataFrame inicial:\n", df)
+
+    df.loc[2, 'Edad'] = 29  # Cambia el valor de la celda en la fila 2, columna 'Edad'
+    print("\nDataFrame con valor modificado (loc):\n", df)
+    ```
+
+* **`iloc`:** Selecciona una celda y cambia su valor.
+
+    ```python
+    df = pd.DataFrame({'Nombre': ['Ana', 'Carlos', 'Diana', 'Emilio'], 'Edad': [25, 30, 28, 27]})
+    print("DataFrame inicial:\n", df)
+
+    df.iloc[1, 0] = 'Carlos'  # Cambia el valor de la celda en la fila 2, columna 0
+    print("\nDataFrame con valor modificado (iloc):\n", df)
+    ```
+
+* **`at`:** Selecciona una celda y cambia su valor. 
+
+    ```python
+    df = pd.DataFrame({'Nombre': ['Ana', 'Carlos', 'Diana', 'Emilio'], 'Edad': [25, 30, 28, 27]}, index=['Ana', 'Carlos', 'Diana', 'Emilio'])
+    print("DataFrame inicial:\n", df)
+
+    df.at['Diana', 'Edad'] = 32  # Cambia el valor de la celda en la fila 'Diana', columna 'Edad'
+    print("\nDataFrame con valor modificado (at):\n", df)
+    ```
+
+* **`iat`:** Selecciona una celda y cambia su valor.
+
+    ```python
+    df = pd.DataFrame({'Nombre': ['Ana', 'Carlos', 'Diana', 'Emilio'], 'Edad': [25, 30, 28, 27]})
+    print("DataFrame inicial:\n", df)
+
+    df.iat[1, 0] = 'Emilio'  # Cambia el valor de la celda en la fila 2, columna 0
+    print("\nDataFrame con valor modificado (iat):\n", df)
+    ```
+
+* **`apply()`:** Aplica una función a cada fila o columna.
+
+    ```python
+    df = pd.DataFrame({'Nombre': ['Ana', 'Carlos', 'Diana', 'Emilio'], 'Edad': [25, 30, 28, 27]})
+    print("DataFrame inicial:\n", df)
+
+    df['Edad'] = df['Edad'].apply(lambda x: x * 2)  # Duplica los valores de la columna 'Edad'
+    print("\nDataFrame con valores duplicados:\n", df)
+    ```
+
+### **4. Reorganizar y Transponer DataFrames:**
+
+* **`sort_values()`:** Ordena filas según los valores de una columna.
+
+    ```python
+    df = pd.DataFrame({'Nombre': ['Ana', 'Carlos', 'Diana', 'Emilio'], 'Edad': [25, 30, 28, 27]})
+    print("DataFrame inicial:\n", df)
+
+    df = df.sort_values(by='Edad', ascending=False)
+    print("\nDataFrame ordenado por Edad (descendente):\n", df)
+
+    df = df.sort_values(by='Edad', ascending=True)
+    print("\nDataFrame ordenado por Edad (ascendente):\n", df)
+    ```
+
+* **`sort_index()`:** Ordena filas por índice.
+
+    ```python
+    df = pd.DataFrame({'Nombre': ['Ana', 'Carlos', 'Diana', 'Emilio'], 'Edad': [25, 30, 28, 27]})
+    print("DataFrame inicial:\n", df)
+
+    df = df.sort_index(ascending=False)
+    print("\nDataFrame ordenado por índice (descendente):\n", df)
+
+    df = df.sort_index(ascending=True)
+    print("\nDataFrame ordenado por índice (ascendente):\n", df)
+    ```
+
+* **`transpose()`:** Transpone el DataFrame, intercambiando filas y columnas.
+
+    ```python
+    df = pd.DataFrame({'Nombre': ['Ana', 'Carlos', 'Diana', 'Emilio'], 'Edad': [25, 30, 28, 27]})
+    print("DataFrame inicial:\n", df)
+
+    df = df.transpose()
+    print("\nDataFrame transpuesto:\n", df)
+    ```
+
+## Diferencia entre `.loc`, `.iloc`, `.at` y `.iat` en Pandas:
+
+### **1. `.loc` y `.iloc`**
+
+* **`.loc`:** Selecciona filas y columnas por etiquetas (nombres) o por rangos de etiquetas.
+* **`.iloc`:** Selecciona filas y columnas por posición (índices numéricos) o por rangos de índices numéricos.
+
+**Ejemplo `.loc`:**
+
+```python
+import pandas as pd
+
+df = pd.DataFrame({'Nombre': ['Ana', 'Carlos', 'Diana', 'Emilio'], 'Edad': [25, 30, 28, 27]}, 
+                  index=['Ana', 'Carlos', 'Diana', 'Emilio'])
+
+# Seleccionar la fila con etiqueta 'Diana' y la columna con nombre 'Edad'
+print(df.loc['Diana', 'Edad'])  # Salida: 28
+
+# Seleccionar filas desde la fila con etiqueta 'Carlos' hasta la fila con etiqueta 'Emilio'
+# (incluidas ambas) y todas las columnas
+print(df.loc['Carlos':'Emilio', :]) 
+```
+
+**Ejemplo `.iloc`:**
+
+```python
+# Seleccionar la fila en la posición 2 (tercera fila) y la columna en la posición 1 (segunda columna)
+print(df.iloc[2, 1])  # Salida: 28
+
+# Seleccionar las filas de la posición 1 (segunda fila) hasta la posición 3 (cuarta fila)
+# (incluidas ambas) y la columna en la posición 0 (primera columna)
+print(df.iloc[1:3, 0])
+```
+
+### **2. `.at` y `.iat`**
+
+* **`.at`:** Selecciona una sola celda por etiquetas (nombres) de fila y columna.
+* **`.iat`:** Selecciona una sola celda por posiciones (índices numéricos) de fila y columna.
+
+**Ejemplo `.at`:**
+
+```python
+# Seleccionar la celda en la fila con etiqueta 'Diana' y la columna con nombre 'Edad'
+print(df.at['Diana', 'Edad'])  # Salida: 28
+
+# Cambiar el valor de la celda en la fila con etiqueta 'Diana' y la columna con nombre 'Edad' a 32
+df.at['Diana', 'Edad'] = 32
+print(df)
+```
+
+**Ejemplo `.iat`:**
+
+```python
+# Seleccionar la celda en la fila con posición 2 (tercera fila) y la columna con posición 1 (segunda columna)
+print(df.iat[2, 1])  # Salida: 28
+
+# Cambiar el valor de la celda en la fila con posición 2 (tercera fila) y la columna con posición 1 (segunda columna) a 35
+df.iat[2, 1] = 35
+print(df)
+```
+
+**Conclusión:**
+
+* **`.loc` y `.iloc`:** para seleccionar múltiples filas/columnas, rangos de filas/columnas o para realizar operaciones con varios valores.
+* **`.at` y `.iat`:** para acceder a una sola celda y modificar su valor de forma eficiente.
+
+## Actividad: Agrupando y Resumiendo Datos sobre Estudiantes
+
+**Objetivo:** Practicar la agrupación y el resumen de datos en Pandas utilizando un DataFrame de estudiantes.
+
+**Datos:**
+
+| Nombre | Edad | Género | Calificación |
+|---|---|---|---|
+| Ana | 18 | Mujer | 8.5 |
+| Juan | 19 | Hombre | 7.0 |
+| Pedro | 18 | Hombre | 9.2 |
+| Sofía | 17 | Mujer | 9.8 |
+| Carlos | 20 | Hombre | 6.5 |
+| María | 18 | Mujer | 8.0 |
+| Luis | 19 | Hombre | 7.8 |
+
+**Pasos:**
+
+1. **Crear un DataFrame:** Crea un DataFrame de Pandas con los datos de la tabla.
+
+2. **Agrupación por Género:** Agrupa el DataFrame por la columna 'Género'.
+
+3. **Resumen de Edad:** Calcula la edad promedio de los estudiantes por género.
+
+4. **Resumen de Calificaciones:** Calcula la calificación promedio y la calificación máxima por género.
+
+5. **Tabla de Resumen:** Crea una tabla que muestre la edad promedio, la calificación promedio y la calificación máxima para cada género.
+
+**Preguntas adicionales:**
+
+* ¿Cómo puedes calcular la cantidad de estudiantes por género?
+* ¿Cómo puedes ordenar la tabla de resumen por la calificación promedio de forma descendente?
+* ¿Cómo puedes agregar una nueva columna al DataFrame con la categoría de edad (por ejemplo, "Joven" para estudiantes menores de 19 años y "Adulto" para estudiantes mayores o iguales a 19 años)?

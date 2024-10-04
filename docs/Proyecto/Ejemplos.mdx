@@ -1,0 +1,235 @@
+---
+sidebar_position: 2
+draft: true
+slug: /semana2
+---
+## Curso de Pandas: Estructura Básica
+
+Este curso te introducirá a la estructura fundamental de Pandas, una biblioteca de Python esencial para el análisis de datos. Aprenderás los conceptos básicos para manipular y analizar datos de manera eficiente.
+
+**Módulo 1: Introducción a Pandas**
+
+* **¿Qué es Pandas?**
+    * Explorando las capacidades de Pandas para la manipulación y análisis de datos.
+    * Ventajas de usar Pandas en comparación con otras herramientas.
+* **Instalación de Pandas**
+    * Guía paso a paso para instalar Pandas en tu entorno de Python.
+* **Importando la biblioteca**
+    * Aprender a importar Pandas correctamente en tus scripts de Python.
+* **Series:**
+    * Comprender el concepto de Series como vectores unidimensionales etiquetados.
+    * Crear Series a partir de listas, diccionarios y arreglos NumPy.
+    * Acceder y modificar valores en Series.
+    * Operaciones básicas con Series (suma, multiplicación, etc.).
+* **DataFrames:**
+    * Entender DataFrames como estructuras de datos bidimensionales tabulares.
+    * Creación de DataFrames a partir de listas, diccionarios, Series y archivos CSV.
+    * Acceso a filas y columnas mediante índices y nombres.
+    * Operaciones básicas con DataFrames (filtrado, selección, etc.).
+
+**Módulo 2: Manipulación de Datos**
+
+* **Indexación y selección:**
+    * Familiarizarse con diferentes métodos de indexación en DataFrames.
+    * Seleccionar filas y columnas con etiquetas, números de índice y condiciones.
+    * Utilizar `loc` e `iloc` para acceder a datos específicos.
+* **Filtrado de datos:**
+    * Filtrar DataFrames utilizando condiciones lógicas.
+    * Crear máscaras booleanas para seleccionar datos específicos.
+    * Filtrar datos con diferentes criterios combinados.
+* **Agrupación y Resumen:**
+    * Agrupar datos por diferentes columnas.
+    * Aplicar funciones de resumen (suma, media, conteo, etc.) a grupos.
+    * Crear tablas de resumen con `groupby` y `agg`.
+* **Unión y Concatenación:**
+    * Combinar DataFrames horizontal y verticalmente.
+    * Uniendo DataFrames basados en columnas comunes.
+    * Concatenar DataFrames para crear datasets más grandes.
+* **Modificación de DataFrames:**
+    * Agregar, eliminar y renombrar filas y columnas.
+    * Modificar valores en DataFrames.
+    * Reorganizar y transponer DataFrames.
+
+**Módulo 3: Análisis de Datos**
+
+* **Análisis estadístico:**
+    * Calcular estadísticas descriptivas (media, desviación estándar, etc.).
+    * Usar métodos de Pandas para analizar la distribución de datos.
+* **Gráficos con Pandas:**
+    * Crear gráficos básicos (histogramas, gráficos de barras, etc.) con `matplotlib`.
+    * Personalizar gráficos para presentar datos de forma efectiva.
+* **Manipulación de Fechas y Horas:**
+    * Trabajar con datos de fecha y hora en Pandas.
+    * Convertir cadenas de texto a objetos de fecha.
+    * Realizar cálculos con fechas y horas.
+* **Manejo de valores faltantes:**
+    * Identificar y tratar valores faltantes (NaN).
+    * Eliminar filas o columnas con valores faltantes.
+    * Rellenar valores faltantes con métodos de interpolación.
+
+**Módulo 4: Lectura y Escritura de Datos**
+
+* **Lectura de archivos:**
+    * Importar datos desde archivos CSV, Excel, JSON y otros formatos.
+    * Personalizar opciones de lectura para importar datos correctamente.
+* **Escritura de archivos:**
+    * Exportar DataFrames a diferentes formatos de archivo.
+    * Controlar opciones de exportación para guardar datos en el formato deseado.
+
+**Ejemplos y Práctica:**
+
+* A lo largo del curso, se incluirán ejemplos prácticos para ilustrar los conceptos aprendidos.
+* Se proporcionarán ejercicios y proyectos para practicar las habilidades adquiridas.
+
+**Ejemplo completo con todas las modificaciones:**
+
+```python
+import pandas as pd
+
+# 1. Crear DataFrame
+data = {'Nombre': ['Ana', 'Juan', 'Pedro', 'Sofía', 'Carlos', 'María', 'Luis'],
+        'Edad': [18, 19, 18, 17, 20, 18, 19],
+        'Género': ['Mujer', 'Hombre', 'Hombre', 'Mujer', 'Hombre', 'Mujer', 'Hombre'],
+        'Calificación': [8.5, 7.0, 9.2, 9.8, 6.5, 8.0, 7.8]}
+df = pd.DataFrame(data)
+
+# 2. Agrupación por Género
+grouped_gender = df.groupby('Género')
+
+# 3. Resumen de Edad
+edad_promedio = grouped_gender['Edad'].mean()
+
+# 4. Resumen de Calificaciones
+calificacion_promedio = grouped_gender['Calificación'].mean()
+calificacion_maxima = grouped_gender['Calificación'].max()
+
+# 5. Tabla de Resumen
+resumen_genero = pd.DataFrame({'Edad Promedio': edad_promedio,
+                              'Calificación Promedio': calificacion_promedio,
+                              'Calificación Máxima': calificacion_maxima})
+
+# 6. Cantidad de estudiantes por género
+cantidad_estudiantes = grouped_gender['Nombre'].count()
+print("Cantidad de estudiantes por género:\n", cantidad_estudiantes)
+
+# 7. Ordenar la tabla de resumen por calificación promedio descendente
+resumen_genero = resumen_genero.sort_values(by='Calificación Promedio', ascending=False)
+print("\nTabla de resumen ordenada:\n", resumen_genero)
+
+# 8. Agregar columna de categoría de edad
+df['Categoría Edad'] = ['Joven' if edad < 19 else 'Adulto' for edad in df['Edad']]
+print("\nDataFrame con columna de categoría de edad:\n", df)
+```
+
+### 2. Evaluación de desempeño (60%)
+
+Crea un programa en Python que valide si una contraseña cumple con los siguientes criterios:
+
+* **Longitud mínima:** 8 caracteres.
+* **Mayúsculas:** Al menos una letra mayúscula.
+* **Minúsculas:** Al menos una letra minúscula.
+* **Números:** Al menos un número.
+* **Caracteres especiales:** Al menos un carácter especial (!@#$%^&*).
+
+**Pasos:**
+
+1. **Crea un repositorio en GitHub:** 
+    - Nombra el repositorio "validacion_contraseñas".
+    - Inicializa el repositorio con un archivo README.md.
+2. **Crea un archivo Python:**
+    - Crea un archivo llamado "validador.py" dentro del repositorio.
+3. **Implementa la lógica de validación:**
+    - Define una función llamada `validar_contraseña` que reciba la contraseña como argumento.
+    - Utiliza ciclos `for` para iterar sobre cada caracter de la contraseña.
+    - Utiliza condicionales `if` para verificar cada criterio de la contraseña.
+        - Longitud mínima.
+        - Mayúsculas.
+        - Minúsculas.
+        - Números.
+        - Caracteres especiales.
+    - Si la contraseña cumple con todos los criterios, retorna `True`.
+    - Si no cumple, retorna `False`.
+4. **Solicitar contraseña al usuario:**
+    - Escribe un código que solicite al usuario ingresar una contraseña.
+5. **Llama a la función de validación:**
+    - Llama a la función `validar_contraseña` con la contraseña ingresada por el usuario.
+6. **Mostrar resultado:**
+    - Imprime un mensaje indicando si la contraseña es válida o no.
+7. **Comprobar código:**
+    - Prueba el código con diferentes contraseñas para asegurarte de que funciona correctamente.
+8. **Documenta el código:**
+    - Agrega comentarios al código para explicar su funcionamiento.
+9. **Agregar pruebas unitarias:**
+    - Crea un archivo separado llamado "test_validador.py" con pruebas unitarias para la función `validar_contraseña`.
+10. **Subir los cambios a GitHub:**
+    - Guarda los cambios y súbelos al repositorio en GitHub.
+    - Agrega un commit con un mensaje descriptivo.
+    - Empuja los cambios al repositorio remoto.
+
+**Ayuda:**
+
+* Puedes utilizar la función `len()` para obtener la longitud de la contraseña.
+* Puedes utilizar la función `isupper()`, `islower()` y `isdigit()` para verificar el tipo de carácter.
+* Puedes crear una lista de caracteres especiales para verificar su presencia.
+* Utiliza la función `print()` para mostrar mensajes al usuario.
+
+**Entrega:**
+
+*  Comparte el enlace de tu repositorio de GitHub en el archivo de evidencias de tu carpeta compartida en la semana 6.
+
+:::warning
+Nota: No se aceptarán actualizaciones al repositorio después de la fecha y hora de entrega.
+:::
+
+
+
+
+
+
+### 2. Evaluación de desempeño (60%)
+
+**Objetivo:** Crear una aplicación en Python que gestione una lista de compras, permitiendo agregar, eliminar y mostrar los artículos.
+
+**Pasos:**
+
+1. **Crear un repositorio en GitHub:**    
+    * Crea un nuevo repositorio llamado "lista_de_compras".
+    * Inicializa el repositorio con un archivo `README.md` que describa el proyecto.    
+2. **Crear un archivo Python:**
+    * Crea un archivo llamado `lista_compras.py` dentro de tu repositorio.
+3. **Inicializar la lista de compras:**
+    * Crea una variable llamada `lista_compras` como una lista vacía: `lista_compras = []`
+4. **Bucle principal:**
+    * Crea un bucle `while` que se ejecute hasta que el usuario decida salir.
+    * Dentro del bucle:
+        * Presenta al usuario un menú de opciones:
+            * 1. Agregar artículo
+            * 2. Eliminar artículo
+            * 3. Mostrar lista
+            * 4. Salir
+        * Solicita al usuario que ingrese una opción usando `input()`.
+5. **Manejar las opciones del menú:**
+    * Utiliza `if`, `elif` y `else` para manejar cada opción del menú:
+        * **Opción 1 (Agregar artículo):**
+            * Solicita al usuario el nombre del artículo usando `input()`.
+            * Agrega el artículo a la lista `lista_compras` usando `append()`.
+        * **Opción 2 (Eliminar artículo):**
+            * Muestra la lista de compras actual.
+            * Solicita al usuario el índice del artículo a eliminar usando `input()`.
+            * Convierte la entrada a un entero usando `int()`.
+            * Elimina el artículo de la lista usando `del lista_compras[índice]`.
+        * **Opción 3 (Mostrar lista):**
+            * Imprime la lista de compras usando `print()`.
+        * **Opción 4 (Salir):**
+            * Imprime un mensaje de despedida y termina el bucle.
+6. **Subir los cambios al repositorio:**
+    * Agrega los cambios realizados al archivo `lista_compras.py` al stage del Git: `git add .`
+    * Crea un commit con un mensaje descriptivo: `git commit -m "Implementación inicial de la lista de compras"`
+    * Sube los cambios al repositorio remoto: `git push origin main`
+
+7. **Entregar el enlace:**
+    * Comparte el enlace de tu repositorio de GitHub en el archivo de evidencias de tu carpeta compartida en la semana 6.
+
+:::warning
+Nota: No se aceptarán actualizaciones al repositorio después de la fecha y hora de entrega.
+:::
