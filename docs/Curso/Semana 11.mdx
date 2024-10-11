@@ -1,5 +1,258 @@
 ---
 sidebar_position: 11
-draft: true
+draft: false
 slug: /semana11
 ---
+
+
+# Semana 11
+
+## Graficos en  Streamlit
+
+Streamlit es una biblioteca de Python que permite crear aplicaciones web interactivas con código Python. Una de las características más importantes de Streamlit es su capacidad para crear gráficos interactivos.
+
+[https://docs.streamlit.io/library/api-reference/charts](https://docs.streamlit.io/library/api-reference/charts)
+
+### st.line_chart
+
+```python 
+
+import streamlit as st
+import pandas as pd
+
+# Creamos un DataFrame de ejemplo con información de vehículos
+vehiculos_data = {
+    'Modelo': ['Ford', 'Toyota', 'Honda', 'Chevrolet', 'Nissan', 'Kia'],
+    'Ventas 2020': [100000, 90000, 80000, 70000, 60000, 50000],
+    'Ventas 2021': [120000, 95000, 85000, 75000, 65000, 55000]
+}
+vehiculos_df = pd.DataFrame(vehiculos_data)
+
+# Establecemos la columna 'Modelo' como índice del DataFrame
+vehiculos_df.set_index('Modelo', inplace=True)
+
+# Creamos un gráfico de línea con las ventas de los vehículos por año
+st.line_chart(vehiculos_df[['Ventas 2020', 'Ventas 2021']])
+```
+
+### st.area_chart
+
+```python 
+import streamlit as st
+import pandas as pd
+import numpy as np
+
+# Crear el DataFrame con los ingresos de tres tiendas en cuatro trimestres
+data = {
+    'Tienda': ['Tienda 1', 'Tienda 1', 'Tienda 1', 'Tienda 1', 'Tienda 2', 'Tienda 2', 'Tienda 2', 'Tienda 2', 'Tienda 3', 'Tienda 3', 'Tienda 3', 'Tienda 3'],
+    'Trimestre': ['Q1', 'Q2', 'Q3', 'Q4', 'Q1', 'Q2', 'Q3', 'Q4', 'Q1', 'Q2', 'Q3', 'Q4'],
+    'Ingresos': [100, 120, 110, 130, 80, 190, 100, 110, 270, 80, 85, 90]
+}
+
+df = pd.DataFrame(data)
+
+# Mostrar el DataFrame
+st.write(df)
+
+# Graficar el DataFrame con un gráfico de área
+df_pivot = df.pivot(index='Tienda', columns='Trimestre', values='Ingresos')
+st.area_chart(df_pivot)
+```
+
+### st.bar_chart
+
+```python 
+
+import streamlit as st
+import pandas as pd
+
+# Crear el DataFrame con la cantidad de animales por tipo
+data = {
+    'Tipo': ['Perro', 'Gato', 'Pájaro', 'Conejo', 'Hamster'],
+    'Cantidad': [50, 30, 20, 10, 5]
+}
+
+df = pd.DataFrame(data)
+
+# Mostrar el DataFrame
+st.write(df)
+
+# Graficar el DataFrame con un gráfico de barras
+st.bar_chart(df.set_index('Tipo'))
+```
+
+### st.pyplot
+
+```python 
+import streamlit as st 
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Datos de insectos
+mosca = 100
+hormiga = 50 
+mariposa = 20
+escarabajo = 30
+
+# Categorías de insectos
+insectos = ['Moscas', 'Hormigas', 'Mariposas', 'Escarabajos']
+
+# Frecuencia de insectos
+frecuencias = [mosca, hormiga, mariposa, escarabajo]
+
+# Crear el gráfico 
+fig = plt.figure(figsize=(8,4))
+ax = fig.add_subplot(111)  
+ax.bar(insectos, frecuencias)
+
+# Mostrar el gráfico  
+st.pyplot(fig)
+```
+
+### st.altair_chart
+
+```python 
+
+import streamlit as st
+import altair as alt
+import pandas as pd
+
+# Sport popularity data
+sports = ['Football', 'Basketball', 'Baseball', 'Tennis']
+popularity = [300, 150, 100, 50]
+
+# Create DataFrame
+data = pd.DataFrame({
+    'sport': sports,
+    'popularity': popularity
+})
+
+# Create chart
+c = alt.Chart(data).mark_circle().encode(
+    x='sport',
+    y='popularity',
+    size='popularity'
+)
+
+st.altair_chart(c, use_container_width=True)
+```
+
+### st.vega_lite_chart
+
+```python 
+import streamlit as st
+import pandas as pd
+
+datos_peces = pd.DataFrame({
+    'Especie': ['Trucha', 'Salmón', 'Bacalao', 'Atún', 'Sardina'],
+    'Longitud (cm)': [30, 45, 60, 75, 20],
+    'Peso (kg)': [2.5, 3.2, 4.8, 6.1, 0.5]
+})
+
+st.vega_lite_chart(datos_peces, {
+    'mark': {'type': 'circle', 'tooltip': True},
+    'encoding': {
+        'x': {'field': 'Longitud (cm)', 'type': 'quantitative'},
+        'y': {'field': 'Peso (kg)', 'type': 'quantitative'},
+        'size': {'field': 'Longitud (cm)', 'type': 'quantitative'},
+        'color': {'field': 'Especie', 'type': 'nominal'},
+    },
+})
+```
+
+## Librerias graficos en Streamlit
+
+### Matplotlib
+
+- [https://matplotlib.org/](https://matplotlib.org/)
+- [https://docs.streamlit.io/library/api-reference/charts/st.pyplot](https://docs.streamlit.io/library/api-reference/charts/st.pyplot)
+
+### Vega-Altair
+
+- [https://altair-viz.github.io/index.html](https://altair-viz.github.io/index.html)
+- [https://docs.streamlit.io/library/api-reference/charts/st.altair_chart](https://docs.streamlit.io/library/api-reference/charts/st.altair_chart)
+  
+### Vega-Lite
+
+- [https://vega.github.io/](https://vega.github.io/)
+- [https://docs.streamlit.io/library/api-reference/charts/st.vega_lite_chart](https://docs.streamlit.io/library/api-reference/charts/st.vega_lite_chart)
+  
+### Plotly 
+
+- [https://plotly.com/python/](https://plotly.com/python/)
+- [https://docs.streamlit.io/library/api-reference/charts/st.plotly_chart](https://docs.streamlit.io/library/api-reference/charts/st.plotly_chart)
+  
+### Bokeh 
+
+- [https://docs.bokeh.org/en/latest/](https://docs.bokeh.org/en/latest/)
+- [https://docs.streamlit.io/library/api-reference/charts/st.bokeh_chart](https://docs.streamlit.io/library/api-reference/charts/st.bokeh_chart)
+  
+## Portales de Datos Abiertos
+
+### datos.gov.co
+**URL**: https://www.datos.gov.co/
+- Portal oficial de datos abiertos de Colombia
+- Contiene datasets de todas las entidades gubernamentales
+- Incluye información sobre salud, educación, economía, etc.
+- Permite la descarga de datos en múltiples formatos
+- Ofrece visualizaciones y APIs para acceso a datos
+
+### Ministerio de Educación - Datos Abiertos
+**URL**: https://www.mineducacion.gov.co/portal/estadisticas/Datos-Abiertos-MEN/
+- Portal específico para datos educativos
+- Contiene estadísticas sobre:
+  * Matriculación
+  * Deserción escolar
+  * Resultados de pruebas
+  * Infraestructura educativa
+  * Programas educativos
+
+## Portales Regionales
+
+### Datos Abiertos Bogotá
+**URL**: https://datosabiertos.bogota.gov.co/
+- Portal específico para la capital colombiana
+- Contiene datos sobre:
+  * Movilidad
+  * Seguridad
+  * Servicios públicos
+  * Desarrollo urbano
+  * Gestión pública
+
+### Datos Abiertos Área Metropolitana
+**URL**: https://datosabiertos.metropol.gov.co/
+- Enfocado en el área metropolitana específica
+- Información sobre:
+  * Planificación urbana
+  * Transporte
+  * Medio ambiente
+  * Desarrollo regional
+
+## Plataformas Internacionales
+
+### Google Dataset Search
+**URL**: https://datasetsearch.research.google.com/
+- Buscador especializado en datasets
+- Indexa múltiples fuentes de datos
+- Permite búsqueda avanzada de conjuntos de datos
+- Incluye datasets de todo el mundo
+- Ofrece metadatos detallados
+
+### Kaggle Datasets
+**URL**: https://www.kaggle.com/datasets
+- Plataforma de ciencia de datos y machine learning
+- Contiene datasets para:
+  * Competencias de análisis de datos
+  * Proyectos de aprendizaje automático
+  * Investigación
+  * Práctica y educación
+- Incluye notebooks y códigos de ejemplo
+- Comunidad activa de científicos de datos
+
+## Características Comunes
+- Datos en formatos abiertos (CSV, JSON, XML)
+- Licencias de uso público
+- Documentación y metadatos
+- APIs para acceso programático
+- Herramientas de visualización
+
