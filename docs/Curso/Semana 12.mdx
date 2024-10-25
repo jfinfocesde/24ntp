@@ -1,5 +1,259 @@
 ---
 sidebar_position: 12
-draft: true
+draft: false
 slug: /semana12
 ---
+
+
+# Semana 12
+
+## Evaluación Momento 1 
+
+### 1. Evaluación de conocimientos (40%)
+
+Por favor, complete la evaluación de conocimientos haciendo clic en el siguiente enlace y utilice el código asignado por el docente
+
+[https://quizizz.com/join](https://quizizz.com/join)
+
+
+### 2. Actividad con Google Colab: Análisis de Datos con Pandas (30%)
+
+Objetivo: Aplicar los conceptos de agrupación, resumen y filtrado de datos en Pandas.
+
+Conjunto de Datos: Utilizar script que genera el archivo "educacion.csv" con 100 registros.
+
+~~~python 
+import pandas as pd
+import numpy as np
+import random
+from datetime import datetime
+
+# Definir datos de ejemplo
+nombres = ["Juan", "María", "Carlos", "Ana", "Pedro", "Laura", "Diego", "Sofia", "Luis", "Carmen"]
+apellidos = ["García", "Martínez", "López", "González", "Rodríguez", "Fernández", "Pérez", "Sánchez", "Torres", "Ramírez"]
+niveles_educativos = ["Licenciatura", "Posgrado", "Doctorado", "Maestría"]
+carreras = [
+    "Ingeniería en Sistemas", "Medicina", "Administración", "Psicología",
+    "Arquitectura", "Derecho", "Biología", "Economía", "Física", "Química"
+]
+instituciones = [
+    "Universidad Nacional de Colombia", "Universidad de Antioquia", "Universidad del Valle",
+    "Universidad Industrial de Santander", "Universidad de los Andes"
+]
+departamentos = [
+    "Antioquia", "Cundinamarca", "Valle del Cauca", "Santander", "Atlántico",
+    "Boyacá", "Caldas", "Risaralda", "Bolívar", "Norte de Santander"
+]
+
+# Generar 50 registros
+data = []
+for _ in range(50):
+    nombre = random.choice(nombres)
+    apellido = random.choice(apellidos)
+    edad = random.randint(18, 45)
+    nivel = random.choice(niveles_educativos)
+    carrera = random.choice(carreras)
+    institucion = random.choice(instituciones)
+    departamento = random.choice(departamentos)
+    promedio = round(random.uniform(3.0, 5.0), 2)  # Ajustado a escala colombiana
+    
+    data.append({
+        'Nombre': f"{nombre} {apellido}",
+        'Edad': edad,
+        'Nivel educativo': nivel,
+        'Carrera': carrera,
+        'Institución': institucion,
+        'Departamento': departamento,
+        'Promedio': promedio
+    })
+
+# Crear DataFrame
+df = pd.DataFrame(data)
+
+# Asegurar que haya suficientes estudiantes de posgrado para el análisis
+posgrado_count = len(df[df['Nivel educativo'] == 'Posgrado'])
+if posgrado_count < 10:
+    indices = df[df['Nivel educativo'] != 'Posgrado'].index[:10-posgrado_count]
+    df.loc[indices, 'Nivel educativo'] = 'Posgrado'
+
+# Guardar el DataFrame en un archivo CSV
+df.to_csv('educacion.csv', index=False)
+
+# Mostrar las primeras filas del DataFrame generado
+print(df.head())
+~~~
+
+#### Crea un Notebook en Google Colab llamado: "ntp_m2" 
+
+Este Notebook explorará el conjunto de datos "educacion.csv" generado por el script proporcionado, utilizando las funciones de Pandas para la manipulación y análisis de datos. El conjunto de datos representa información de estudiantes colombianos, incluyendo su nombre, edad, nivel educativo, carrera, institución, departamento y promedio.
+
+**Objetivo:** Aplicar los conceptos de agrupación, resumen, filtrado y análisis de datos en Pandas.
+
+**Conjunto de Datos:** Utilizar el archivo "educacion.csv" generado por el script proporcionado.
+
+**Pasos:**
+
+1. **Importar Pandas y cargar el archivo:**
+    * Importa la biblioteca Pandas usando la instrucción `import pandas as pd`.
+    * Carga el archivo "educacion.csv" en un DataFrame llamado `df_educacion` utilizando la función `read_csv()`. 
+
+2. **Inspección inicial y estadísticas descriptivas:**
+    * Muestra las primeras 7 filas del DataFrame `df_educacion` utilizando la función `head()`.
+    * Obtén información general del DataFrame `df_educacion` utilizando la función `info()`. Esto te mostrará el tipo de datos de cada columna y la cantidad de valores no nulos.
+    * Calcula las estadísticas descriptivas de las columnas numéricas del DataFrame `df_educacion` utilizando la función `describe()`. Esto te dará la media, desviación estándar, valores mínimos y máximos, cuartiles, etc.
+
+3. **Análisis exploratorio:**
+    * Determina los 3 niveles educativos más comunes en el conjunto de datos utilizando la función `value_counts()` y seleccionando los 3 valores más altos. 
+    * Identifica las 2 carreras con mayor número de estudiantes utilizando la función `value_counts()` y seleccionando los 2 valores más altos.
+    * Encuentra los 3 departamentos con mayor representación en el DataFrame utilizando la función `value_counts()` y seleccionando los 3 valores más altos.
+    * Calcula la edad promedio de los estudiantes utilizando la función `mean()` sobre la columna 'Edad'.
+    * Determina la edad mínima y máxima de los estudiantes utilizando las funciones `min()` y `max()` sobre la columna 'Edad'.
+
+4. **Filtrado y agrupación de datos:**
+    * Crea un nuevo DataFrame llamado `df_posgrado` que contenga solo a los estudiantes con un nivel educativo de "Posgrado" utilizando un filtro por condición sobre la columna 'Nivel educativo'. 
+    * Agrupa el DataFrame `df_educacion` por "Departamento" y "Nivel educativo" utilizando la función `groupby()`. 
+    * Calcula la cantidad de estudiantes por cada grupo utilizando la función `count()` sobre el DataFrame agrupado.
+    * Calcula la edad promedio de los estudiantes de posgrado utilizando la función `mean()` sobre la columna 'Edad' del DataFrame `df_posgrado`.
+    * Encuentra el departamento con mayor número de estudiantes de posgrado utilizando la función `value_counts()` sobre la columna 'Departamento' del DataFrame `df_posgrado` y seleccionando el valor más alto.
+
+5. **Resumen de datos:**
+    * Calcula la edad promedio de los estudiantes por "Nivel educativo" utilizando la función `groupby()` y la función `mean()`.
+    * Crea una tabla de resumen que muestre la edad promedio, la edad mínima y la edad máxima para cada "Nivel educativo" utilizando la función `agg()` con las funciones `mean()`, `min()` y `max()`.
+    * Crea un gráfico de barras que muestre la cantidad de estudiantes por cada nivel educativo utilizando la función `plot()` con el tipo de gráfico 'bar'.
+
+6. **Análisis adicional:**
+    * Encuentra la correlación entre la edad y el promedio de los estudiantes utilizando la función `corr()` sobre las columnas 'Edad' y 'Promedio'.
+    * Crea un gráfico de dispersión que muestre la relación entre la edad y el promedio de los estudiantes utilizando la función `plot()` con el tipo de gráfico 'scatter'.
+    *  Crea un histograma que muestre la distribución de las edades de los estudiantes utilizando la función `hist()` sobre la columna 'Edad'.
+    *  Crea una tabla de frecuencia que muestre la cantidad de estudiantes por cada departamento utilizando la función `value_counts()` sobre la columna 'Departamento'.
+
+7. **Guardar resultados:**
+    * Guarda el DataFrame `df_posgrado` en un nuevo archivo CSV llamado "estudiantes_posgrado.csv" utilizando la función `to_csv()`.
+
+**Evaluación:**
+
+* **Funcionalidad del código:** El código debe ejecutarse sin errores y generar los resultados esperados.
+* **Claridad del código:** El código debe estar bien organizado, con comentarios que expliquen cada paso y la lógica utilizada.
+
+
+### 3.  Actividad con Streamlit: Análisis de Datos de Educación (30%)
+
+Basándonos en el archivo "educacion.csv" crear una nueva apliación utilizando Streamlit que permita a los usuarios explorar y analizar estos datos de manera interactiva. 
+
+Objetivo: Desarrollar una aplicación web con Streamlit que permita a los usuarios:
+
+* Cargar el archivo "educacion.csv".
+* Visualizar la información en una tabla.
+* Filtrar los datos por diferentes criterios (Nivel educativo, Carrera, Institución).
+* Obtener estadísticas descriptivas de los datos filtrados (edad promedio, conteo de estudiantes por nivel educativo, etc.).
+* Visualizar la distribución de los datos en gráficos.
+
+Pasos para crear la actividad:
+
+1. Crear un nuevo archivo Python para la aplicación Streamlit:
+
+   - Nombrar el archivo "app_educacion.py" (o un nombre similar).
+   - Guardarlo en el mismo directorio donde se encuentra el archivo "educacion.csv".
+
+2. Importar las bibliotecas necesarias:
+
+   ```python
+   import streamlit as st
+   import pandas as pd
+   ```
+
+3. Cargar el archivo "educacion.csv" en un DataFrame de Pandas:
+
+   ```python
+   df = pd.read_csv("educacion.csv")
+   ```
+
+4. Crear la interfaz de usuario con Streamlit:
+
+   ```python
+   st.title("Análisis de Datos de Educación en Colombia")
+   ```
+
+5. Agregar un widget para cargar el archivo "educacion.csv":
+
+   ```python
+   uploaded_file = st.file_uploader("Cargar archivo 'educacion.csv'", type=["csv"])
+   if uploaded_file is not None:
+       df = pd.read_csv(uploaded_file)
+   ```
+
+6. Mostrar la tabla de datos en Streamlit:
+
+   ```python
+   st.dataframe(df)
+   ```
+
+7. Agregar widgets para filtrar los datos:
+
+   ```python
+   st.sidebar.header("Filtros")
+   nivel_educativo = st.sidebar.multiselect(
+       "Nivel educativo", df["Nivel educativo"].unique()
+   )
+   carrera = st.sidebar.multiselect("Carrera", df["Carrera"].unique())
+   institucion = st.sidebar.multiselect("Institución", df["Institución"].unique())
+   ```
+
+8. Filtrar el DataFrame con base en los filtros seleccionados:
+
+   ```python
+   df_filtrado = df.copy()
+   if nivel_educativo:
+       df_filtrado = df_filtrado[df_filtrado["Nivel educativo"].isin(nivel_educativo)]
+   if carrera:
+       df_filtrado = df_filtrado[df_filtrado["Carrera"].isin(carrera)]
+   if institucion:
+       df_filtrado = df_filtrado[df_filtrado["Institución"].isin(institucion)]
+   ```
+
+9. Mostrar el DataFrame filtrado:
+
+   ```python
+   st.dataframe(df_filtrado)
+   ```
+
+10. Calcular y mostrar estadísticas descriptivas de los datos filtrados:
+
+   ```python
+   st.subheader("Estadísticas Descriptivas")
+   st.write(df_filtrado.describe())
+
+   # Conteo de estudiantes por nivel educativo
+   st.subheader("Conteo de Estudiantes por Nivel Educativo")
+   st.bar_chart(df_filtrado["Nivel educativo"].value_counts())
+   ```
+
+11. Visualizar la distribución de la edad con un histograma:
+
+   ```python
+   st.subheader("Distribución de la Edad")
+   st.histogram(df_filtrado["Edad"], bins=10)
+   ```
+
+12. Ejecutar la aplicación Streamlit:
+
+   - Abrir una terminal o línea de comandos.
+   - Navegar al directorio donde se encuentra el archivo "app_educacion.py".
+   - Ejecutar el comando: `streamlit run app_educacion.py`
+
+13. Despliegue en la nube: 
+
+   - La aplicación se puede desplegar en la nube utilizando Streamlit Cloud para que sea accesible a través de Internet. 
+
+Esta actividad permitirá a los usuarios explorar y analizar los datos de educación en Colombia utilizando una interfaz web interactiva. La combinación de Streamlit y Pandas ofrece una poderosa herramienta para la visualización y análisis de datos, haciendo que la información sea más accesible y comprensible.
+
+## Formato de entrega
+
+Comparte el enlace a un documento de Google Doc en el archivo de evidencias de tu carpeta compartida en la semana 12, con la siguiente información:
+
+- Integrantes
+- Actividad 2: 
+    - Enlace compartido Google Colab
+- Actividad 3: 
+    - Enlace repositorio público 
+    - Enlace a la aplicación web desplegada.

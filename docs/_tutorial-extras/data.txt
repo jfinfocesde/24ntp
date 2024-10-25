@@ -1,0 +1,483 @@
+## 10 Ejemplos de Gráficos Seaborn en Streamlit:
+
+Gráficos Seaborn en Streamlit, incluyendo la generación de datos, la adaptación de datos, la aplicación y documentación:
+
+### **1. Scatter Plot con Matplotlib:**
+
+```python
+import streamlit as st
+import seaborn as sns
+import matplotlib.pyplot as plt
+import pandas as pd
+
+st.title("Scatter Plot con Seaborn y Matplotlib")
+
+# Generación de datos
+num_points = st.slider("Número de puntos", min_value=5, max_value=50, value=10)
+x = [i for i in range(num_points)]
+y = [i * 2 for i in range(num_points)]
+df = pd.DataFrame({'x': x, 'y': y})
+
+# Adaptación de datos (opcional): 
+# Puedes agregar más variables o filas al DataFrame según tus necesidades
+# Ejemplo: df['z'] = [i * 3 for i in range(num_points)]
+
+# Personalización del gráfico
+fig, ax = plt.subplots()
+sns.scatterplot(x='x', y='y', data=df, ax=ax, hue='x', size='y')
+ax.set_xlabel("Eje X")
+ax.set_ylabel("Eje Y")
+ax.set_title("Scatter Plot de Relación")
+
+# Aplicación: Mostrar la relación entre dos variables numéricas.
+st.pyplot(fig)
+```
+
+**Documentación:**
+
+* **Objetivo:** Mostrar la relación entre dos variables numéricas.
+* **Aplicación:**
+    - Visualizar la relación entre el precio de un producto y la cantidad vendida.
+    - Analizar la relación entre la edad de una persona y su peso.
+    - Mostrar la correlación entre la temperatura y la humedad.
+* **Adaptación de Datos:** Agregar más variables o filas al DataFrame para representar información adicional.
+* **Personalización del gráfico:**
+    - `hue`: Color de los puntos según una tercera variable.
+    - `size`: Tamaño de los puntos según una variable numérica.
+    - `style`: Estilo de los puntos según una variable categórica.
+    - Títulos, etiquetas de ejes, etc.
+
+### **2. Histograma:**
+
+```python
+import streamlit as st
+import seaborn as sns
+import matplotlib.pyplot as plt
+import pandas as pd
+import random
+
+st.title("Histograma con Seaborn")
+
+# Generación de datos
+num_values = st.slider("Número de valores", min_value=10, max_value=100, value=20)
+data = [random.randint(1, 50) for _ in range(num_values)]
+df = pd.DataFrame({'age': data})
+
+# Adaptación de datos (opcional): 
+# Puedes modificar la columna 'age' o usar otra columna del DataFrame.
+# Ejemplo: df['height'] = [random.uniform(1.5, 2.0) for _ in range(num_values)]
+
+# Personalización del gráfico
+fig, ax = plt.subplots()
+sns.histplot(x='age', data=df, ax=ax, bins=10, kde=True)
+ax.set_xlabel("Edad")
+ax.set_ylabel("Frecuencia")
+ax.set_title("Histograma de Edades")
+
+# Aplicación: Mostrar la distribución de una variable numérica.
+st.pyplot(fig)
+```
+
+**Documentación:**
+
+* **Objetivo:** Mostrar la distribución de una variable numérica.
+* **Aplicación:**
+    - Analizar la distribución de edades en una muestra de población.
+    - Visualizar la distribución de ingresos en una región.
+    - Mostrar la frecuencia de diferentes tipos de productos vendidos.
+* **Adaptación de Datos:** Modificar la columna de la variable numérica o utilizar otra columna del DataFrame.
+* **Personalización del gráfico:**
+    - `bins`: Número de intervalos en el histograma.
+    - `kde`: Agregar una curva de densidad.
+    - Color, títulos, etiquetas de ejes, etc.
+
+### **3. Gráfico de Caja (Box Plot):**
+
+```python
+import streamlit as st
+import seaborn as sns
+import matplotlib.pyplot as plt
+import pandas as pd
+import random
+
+st.title("Box Plot con Seaborn")
+
+# Generación de datos
+num_groups = st.slider("Número de grupos", min_value=2, max_value=5, value=3)
+groups = [chr(ord('A') + i) for i in range(num_groups)]
+data = []
+for group in groups:
+    values = [random.randint(1, 30) for _ in range(10)]
+    data.extend([{'group': group, 'value': v} for v in values])
+df = pd.DataFrame(data)
+
+# Adaptación de datos (opcional):
+# Puedes modificar la columna 'group' o 'value' o agregar más grupos.
+# Ejemplo: df['group'] = ['A', 'B', 'C', 'D', 'E', 'A', 'B', 'C', 'D', 'E']
+
+# Personalización del gráfico
+fig, ax = plt.subplots()
+sns.boxplot(x='group', y='value', data=df, ax=ax, showmeans=True, showfliers=False)
+ax.set_xlabel("Grupo")
+ax.set_ylabel("Valor")
+ax.set_title("Box Plot de Comparación de Grupos")
+
+# Aplicación: Comparar la distribución de una variable numérica entre diferentes grupos.
+st.pyplot(fig)
+```
+
+**Documentación:**
+
+* **Objetivo:** Comparar la distribución de una variable numérica entre diferentes grupos.
+* **Aplicación:**
+    - Comparar la distribución de ingresos entre diferentes niveles educativos.
+    - Analizar las diferencias en la altura entre hombres y mujeres.
+    - Mostrar la variabilidad de la presión arterial en diferentes grupos de edad.
+* **Adaptación de Datos:** Modificar la columna de los grupos o la variable numérica, o agregar más grupos.
+* **Personalización del gráfico:**
+    - `showmeans`: Mostrar la media de cada grupo.
+    - `showfliers`: Mostrar o ocultar los valores atípicos.
+    - Color, títulos, etiquetas de ejes, etc.
+
+### **4. Gráfico de Violín (Violin Plot):**
+
+```python
+import streamlit as st
+import seaborn as sns
+import matplotlib.pyplot as plt
+import pandas as pd
+import random
+
+st.title("Violin Plot con Seaborn")
+
+# Generación de datos
+num_groups = st.slider("Número de grupos", min_value=2, max_value=5, value=3)
+groups = [chr(ord('A') + i) for i in range(num_groups)]
+data = []
+for group in groups:
+    values = [random.randint(1, 30) for _ in range(10)]
+    data.extend([{'group': group, 'value': v} for v in values])
+df = pd.DataFrame(data)
+
+# Adaptación de datos (opcional):
+# Puedes modificar la columna 'group' o 'value' o agregar más grupos.
+# Ejemplo: df['value'] = [v * 2 for v in df['value']]
+
+# Personalización del gráfico
+fig, ax = plt.subplots()
+sns.violinplot(x='group', y='value', data=df, ax=ax, inner='quartile')
+ax.set_xlabel("Grupo")
+ax.set_ylabel("Valor")
+ax.set_title("Violin Plot de Distribución de Valores")
+
+# Aplicación: Visualizar la distribución de una variable numérica dentro de diferentes grupos.
+st.pyplot(fig)
+```
+
+**Documentación:**
+
+* **Objetivo:** Visualizar la distribución de una variable numérica dentro de diferentes grupos.
+* **Aplicación:**
+    - Visualizar la distribución de la altura de los estudiantes en diferentes facultades.
+    - Mostrar la variación de la temperatura en diferentes estaciones del año.
+    - Analizar la distribución de la presión arterial en diferentes grupos de pacientes.
+* **Adaptación de Datos:** Modificar la columna de los grupos o la variable numérica, o agregar más grupos.
+* **Personalización del gráfico:**
+    - `inner`: Estilo de la línea interior del violín.
+    - Color, títulos, etiquetas de ejes, etc.
+
+### **5. Gráfico de Barras (Bar Plot):**
+
+```python
+import streamlit as st
+import seaborn as sns
+import matplotlib.pyplot as plt
+import pandas as pd
+import random
+
+st.title("Bar Plot con Seaborn")
+
+# Generación de datos
+num_categories = st.slider("Número de categorías", min_value=3, max_value=10, value=5)
+categories = [chr(ord('A') + i) for i in range(num_categories)]
+values = [random.randint(5, 25) for _ in range(num_categories)]
+df = pd.DataFrame({'category': categories, 'value': values})
+
+# Adaptación de datos (opcional):
+# Puedes modificar la columna 'category' o 'value' o agregar más categorías.
+# Ejemplo: df['value'] = [v + 5 for v in df['value']]
+
+# Personalización del gráfico
+fig, ax = plt.subplots()
+sns.barplot(x='category', y='value', data=df, ax=ax, palette='Blues')
+ax.set_xlabel("Categoría")
+ax.set_ylabel("Valor")
+ax.set_title("Gráfico de Barras de Valores por Categoría")
+
+# Aplicación: Mostrar la relación entre una variable categórica y una variable numérica.
+st.pyplot(fig)
+```
+
+**Documentación:**
+
+* **Objetivo:** Mostrar la relación entre una variable categórica y una variable numérica.
+* **Aplicación:**
+    - Mostrar la cantidad de ventas por producto.
+    - Visualizar la cantidad de usuarios por país.
+    - Analizar el número de empleados por departamento.
+* **Adaptación de Datos:** Modificar la columna de las categorías o la variable numérica, o agregar más categorías.
+* **Personalización del gráfico:**
+    - `palette`: Paleta de colores para las barras.
+    - Color, títulos, etiquetas de ejes, etc.
+
+### **6. Mapa de Calor (Heatmap):**
+
+```python
+import streamlit as st
+import seaborn as sns
+import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np
+
+st.title("Heatmap con Seaborn")
+
+# Generación de datos
+num_variables = st.slider("Número de variables", min_value=3, max_value=10, value=5)
+data = np.random.rand(num_variables, num_variables)
+df = pd.DataFrame(data, columns=[chr(ord('A') + i) for i in range(num_variables)])
+
+# Adaptación de datos (opcional):
+# Puedes modificar el DataFrame para incluir más variables o usar una matriz de correlación.
+# Ejemplo: df = pd.DataFrame(np.corrcoef(np.random.rand(10, num_variables)), columns=[chr(ord('A') + i) for i in range(num_variables)])
+
+# Personalización del gráfico
+fig, ax = plt.subplots()
+sns.heatmap(df, annot=True, ax=ax, cmap='coolwarm', fmt='.2f')
+ax.set_title("Mapa de Calor de Correlación")
+
+# Aplicación: Visualizar la correlación entre variables.
+st.pyplot(fig)
+```
+
+**Documentación:**
+
+* **Objetivo:** Visualizar la correlación entre variables.
+* **Aplicación:**
+    - Visualizar la correlación entre diferentes variables económicas.
+    - Analizar la relación entre diferentes características de un producto.
+    - Mostrar la correlación entre diferentes genes en un estudio biológico.
+* **Adaptación de Datos:** Modificar el DataFrame para incluir más variables o usar una matriz de correlación.
+* **Personalización del gráfico:**
+    - `cmap`: Paleta de colores para el mapa de calor.
+    - `annot`: Mostrar los valores de la matriz en el gráfico.
+    - `fmt`: Formato de los valores.
+    - Color, títulos, etiquetas de ejes, etc.
+
+### **7. Gráfico de Pares (Pair Plot):**
+
+```python
+import streamlit as st
+import seaborn as sns
+import matplotlib.pyplot as plt
+import pandas as pd
+import random
+
+st.title("Pair Plot con Seaborn")
+
+# Generación de datos
+num_variables = st.slider("Número de variables", min_value=3, max_value=6, value=4)
+data = []
+for _ in range(10):
+    row = [random.randint(1, 20) for _ in range(num_variables)]
+    data.append(row)
+df = pd.DataFrame(data, columns=[chr(ord('A') + i) for i in range(num_variables)])
+
+# Adaptación de datos (opcional):
+# Puedes modificar el DataFrame para incluir más variables o usar una columna como color ('hue').
+# Ejemplo: df['group'] = ['A', 'B', 'C', 'A', 'B', 'C', 'A', 'B', 'C', 'A']
+
+# Personalización del gráfico
+sns.pairplot(df, hue=df.columns[0], diag_kind='kde')
+
+# Aplicación: Visualizar la relación entre todas las parejas de variables.
+st.pyplot(sns.pairplot(df, hue=df.columns[0], diag_kind='kde').fig)
+```
+
+**Documentación:**
+
+* **Objetivo:** Visualizar la relación entre todas las parejas de variables.
+* **Aplicación:**
+    - Analizar la relación entre diferentes variables de un estudio científico.
+    - Mostrar la correlación entre diferentes características de un producto.
+    - Visualizar la relación entre diferentes indicadores de performance.
+* **Adaptación de Datos:** Modificar el DataFrame para incluir más variables o usar una columna como color (`hue`).
+* **Personalización del gráfico:**
+    - `hue`: Color de los puntos según una variable categórica.
+    - `diag_kind`: Tipo de gráfico en la diagonal (histograma, densidad, etc.).
+    - Color, títulos, etiquetas de ejes, etc.
+
+### **8. Gráfico de Relación (Relplot):**
+
+```python
+import streamlit as st
+import seaborn as sns
+import matplotlib.pyplot as plt
+import pandas as pd
+import random
+
+st.title("Relplot con Seaborn")
+
+# Generación de datos
+num_groups = st.slider("Número de grupos", min_value=2, max_value=5, value=3)
+groups = [chr(ord('A') + i) for i in range(num_groups)]
+data = []
+for group in groups:
+    x_values = [i for i in range(10)]
+    y_values = [random.randint(1, 20) + (i * 2) for i in range(10)]
+    data.extend([{'group': group, 'x': x, 'y': y} for x, y in zip(x_values, y_values)])
+df = pd.DataFrame(data)
+
+# Adaptación de datos (opcional):
+# Puedes modificar el DataFrame para incluir más variables o grupos.
+# Ejemplo: df['size'] = [i * 10 for i in range(len(df))]
+
+# Personalización del gráfico
+sns.relplot(x='x', y='y', hue='group', data=df, kind='line', style='group', size='y')
+
+# Aplicación: Mostrar la relación entre dos variables, diferenciando grupos o variables adicionales.
+st.pyplot(sns.relplot(x='x', y='y', hue='group', data=df, kind='line', style='group', size='y').fig)
+```
+
+**Documentación:**
+
+* **Objetivo:** Mostrar la relación entre dos variables, diferenciando grupos o variables adicionales.
+* **Aplicación:**
+    - Visualizar la evolución de las ventas por producto a lo largo del tiempo.
+    - Mostrar la relación entre la temperatura y la humedad en diferentes ciudades.
+    - Analizar la relación entre el número de horas trabajadas y el nivel de estrés en diferentes profesiones.
+* **Adaptación de Datos:** Modificar el DataFrame para incluir más variables o grupos.
+* **Personalización del gráfico:**
+    - `kind`: Tipo de gráfico (línea, puntos, dispersión, etc.).
+    - `hue`: Color de los puntos según una variable categórica.
+    - `style`: Estilo de los puntos según una variable categórica.
+    - `size`: Tamaño de los puntos según una variable numérica.
+    - Color, títulos, etiquetas de ejes, etc.
+
+### **9. Gráfico de Joint Plot:**
+
+```python
+import streamlit as st
+import seaborn as sns
+import matplotlib.pyplot as plt
+import pandas as pd
+import random
+
+st.title("Joint Plot con Seaborn")
+
+# Generación de datos
+num_points = st.slider("Número de puntos", min_value=10, max_value=50, value=20)
+x = [random.randint(1, 30) for _ in range(num_points)]
+y = [random.randint(1, 30) for _ in range(num_points)]
+df = pd.DataFrame({'x': x, 'y': y})
+
+# Adaptación de datos (opcional):
+# Puedes modificar el DataFrame para incluir más variables o usar diferentes columnas para el eje X e Y.
+# Ejemplo: df['z'] = [i * 2 for i in range(num_points)]
+
+# Personalización del gráfico
+sns.jointplot(x='x', y='y', data=df, kind='kde', color='red')
+
+# Aplicación: Visualizar la relación entre dos variables con distribuciones marginales.
+st.pyplot(sns.jointplot(x='x', y='y', data=df, kind='kde', color='red').fig)
+```
+
+**Documentación:**
+
+* **Objetivo:** Visualizar la relación entre dos variables con distribuciones marginales.
+* **Aplicación:**
+    - Visualizar la relación entre la edad y el peso de una muestra de personas.
+    - Analizar la relación entre la temperatura y la humedad en un estudio climático.
+    - Mostrar la relación entre la presión arterial y el nivel de colesterol en un estudio médico.
+* **Adaptación de Datos:** Modificar el DataFrame para incluir más variables o usar diferentes columnas para el eje X e Y.
+* **Personalización del gráfico:**
+    - `kind`: Tipo de gráfico para las distribuciones marginales (histograma, densidad, etc.).
+    - Color, títulos, etiquetas de ejes, etc.
+
+### **10. Gráfico de Categoría (Catplot):**
+
+```python
+import streamlit as st
+import seaborn as sns
+import matplotlib.pyplot as plt
+import pandas as pd
+import random
+
+st.title("Catplot con Seaborn")
+
+# Generación de datos
+num_categories = st.slider("Número de categorías", min_value=3, max_value=10, value=5)
+categories = [chr(ord('A') + i) for i in range(num_categories)]
+data = []
+for category in categories:
+    values = [random.randint(1, 30) for _ in range(10)]
+    data.extend([{'category': category, 'value': v} for v in values])
+df = pd.DataFrame(data)
+
+# Adaptación de datos (opcional):
+# Puedes modificar la columna 'category' o 'value' o agregar más categorías.
+# Ejemplo: df['group'] = ['A', 'B', 'C', 'D', 'E', 'A', 'B', 'C', 'D', 'E']
+
+# Personalización del gráfico
+sns.catplot(x='category', y='value', data=df, kind='box', col='category', height=4)
+
+# Aplicación: Visualizar la relación entre una variable categórica y una variable numérica.
+st.pyplot(sns.catplot(x='category', y='value', data=df, kind='box', col='category', height=4).fig)
+```
+
+**Documentación:**
+
+* **Objetivo:** Visualizar la relación entre una variable categórica y una variable numérica.
+* **Aplicación:**
+    - Mostrar la distribución de ingresos por nivel educativo.
+    - Analizar la distribución de la edad por género.
+    - Visualizar la distribución de la presión arterial por grupo de riesgo.
+* **Adaptación de Datos:** Modificar la columna de las categorías o la variable numérica, o agregar más categorías.
+* **Personalización del gráfico:**
+    - `kind`: Tipo de gráfico para las categorías (caja, violín, puntos, etc.).
+    - `col`: Dividir el gráfico en columnas por una variable categórica.
+    - `row`: Dividir el gráfico en filas por una variable categórica.
+    - Color, títulos, etiquetas de ejes, etc.
+
+
+## Actividad: Explorando Gráficos de Seaborn en Streamlit
+
+**Objetivo:** Familiarizarse con la creación de gráficos en Streamlit utilizando la librería Seaborn.
+
+**Instrucciones:**
+
+1. **Crea un nuevo archivo Python:** Nombralo como "seaborn_streamlit.py".
+2. **Importa las librerías necesarias:**
+   ```python
+   import streamlit as st
+   import seaborn as sns
+   import matplotlib.pyplot as plt
+   import pandas as pd
+   import numpy as np
+   import random
+   ```
+3. **Copia y pega el código de cada uno de los 10 ejemplos de gráficos Seaborn proporcionados anteriormente en el archivo "seaborn_streamlit.py".** Asegúrate de que cada ejemplo esté bien delimitado y que funcione correctamente.
+4. **Ejecuta el código:**  Abre el terminal, navega hasta la carpeta donde guardaste el archivo y escribe `streamlit run seaborn_streamlit.py`. Esto abrirá la aplicación Streamlit en tu navegador web.
+5. **Experimenta con los ejemplos:** Prueba diferentes valores en los sliders y observa cómo cambia la visualización de los gráficos. Intenta adaptar los datos y personalizar los gráficos usando los parámetros que se mencionan en la documentación.
+6. **Investiga dos gráficos adicionales de Seaborn:** Puedes encontrar una lista completa de gráficos en la documentación de Seaborn: [https://seaborn.pydata.org/](https://seaborn.pydata.org/). Elige dos gráficos que te interesen y que no se encuentren en los ejemplos anteriores.
+7. **Implementa los dos gráficos adicionales en Streamlit:**
+    - Genera datos ficticios o carga datos reales.
+    - Adapta los datos al gráfico que elegiste.
+    - Personaliza el gráfico usando parámetros y opciones de Seaborn.
+    - Muestra el gráfico en Streamlit usando `st.pyplot()`.
+8. **Añade documentación a cada gráfico adicional:**  Incluir una breve descripción del gráfico, su objetivo, una aplicación práctica y una explicación de cómo se pueden adaptar los datos y personalizar el gráfico.
+
+**Ejemplos de gráficos adicionales:**
+
+* **Jointplot con diferentes tipos de gráficos marginales:** Puedes utilizar `kind='hist'` para histogramas marginales, `kind='kde'` para curvas de densidad, o `kind='scatter'` para gráficos de dispersión.
+* **Catplot con diferentes tipos de gráficos:** Puedes utilizar `kind='strip'` para un diagrama de puntos, `kind='swarm'` para un diagrama de enjambre, `kind='bar'` para un diagrama de barras, `kind='box'` para un diagrama de caja o `kind='violin'` para un diagrama de violín.
+
