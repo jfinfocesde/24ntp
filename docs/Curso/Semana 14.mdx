@@ -271,3 +271,78 @@ with st.container():
     st.markdown("---")
     col1, col2, col3 = st.columns(3)
 ```
+
+
+## Ejemplo Analizador de camelCase en Código Java
+
+```python
+import streamlit as st
+import google.generativeai as genai
+
+# Configura la API Key de Google Generative AI
+genai.configure(api_key=st.secrets.GEMINI.api_key)
+
+# Selecciona el modelo
+model = genai.GenerativeModel("gemini-1.5-flash")
+
+# Crea la interfaz de usuario con Streamlit
+st.title("Analizador de camelCase en Código Java")
+
+# Área para subir archivo
+uploaded_file = st.file_uploader("Sube tu archivo Java", type=['java'])
+
+def analyze_camel_case(java_code):
+    prompt = f"""
+    Analiza el siguiente código Java y evalúa el uso correcto de camelCase. 
+    Verifica:
+    1. Variables en camelCase
+    2. Métodos en camelCase
+    3. Clases en PascalCase
+    4. Constantes en SNAKE_CASE_MAYÚSCULAS
+    
+    Código a analizar:
+    {java_code}
+    
+    Por favor, proporciona:
+    1. Una lista de elementos que no siguen las convenciones
+    2. Sugerencias de corrección
+    3. Una evaluación general del cumplimiento de las convenciones de nomenclatura
+    """
+    
+    try:
+        response = model.generate_content(prompt)
+        return response.text
+    except Exception as e:
+        return f"Error al analizar el código: {str(e)}"
+
+# Genera el análisis cuando se sube un archivo
+if uploaded_file is not None:
+    # Lee el contenido del archivo
+    java_code = uploaded_file.getvalue().decode("utf-8")
+    
+    # Muestra el código original
+    st.subheader("Código Java Original")
+    st.code(java_code, language='java')
+    
+    # Botón para realizar el análisis
+    if st.button("Analizar Código"):
+        st.subheader("Resultado del Análisis")
+        
+        # Muestra un spinner mientras se procesa
+        with st.spinner('Analizando el código...'):
+            analysis = analyze_camel_case(java_code)
+            st.write(analysis)
+
+else:
+    st.write("Por favor, sube un archivo Java para analizarlo.")
+
+# Agrega información adicional
+st.markdown("""
+---
+### Convenciones de Nomenclatura en Java:
+- **Variables**: camelCase (ej: nombreVariable)
+- **Métodos**: camelCase (ej: calcularTotal)
+- **Clases**: PascalCase (ej: MiClase)
+- **Constantes**: SNAKE_CASE_MAYÚSCULAS (ej: MAX_VALOR)
+""")
+```
